@@ -11,7 +11,10 @@ class Iot_sample_ViewController: UIViewController {
 
     
     @objc var mqttStatus: String = "Disconnected"
-    @objc var topic: String = "SKSL_1xGLn8/HA/E/ack"
+    
+    
+    @objc var topic_pub: String = "SKSL_1xGLn8/HA/A/req"
+    @objc var topic_sub : String = "SKSL_1xGLn8/HA/E/ack"
     
     override func viewDidLoad() {
         super.viewDidLoad()

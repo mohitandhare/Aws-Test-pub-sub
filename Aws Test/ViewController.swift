@@ -12,7 +12,7 @@ import Alamofire
 
 class ViewController: UIViewController {
 
-    struct test_aws : Decodable {
+    struct test_aws : Encodable {
         
         let control : String
         let no : Int
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         
         let iot_sample_vc = Iot_sample_ViewController()
         
-        iotDataManager.unsubscribeTopic(iot_sample_vc.topic)
+        iotDataManager.unsubscribeTopic(iot_sample_vc.topic_sub)
     }
     
     
@@ -80,28 +80,40 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
+//
     @IBAction func pub_button(_ sender: UIButton) {
+
         
         let aws_params : Parameters = [
-        
+
             "control": "L",
             "no" : 1,
             "state" : 1,
             "speed" : 1
-            
-            
+
+
         ]
         
-        let iotDataManager = AWSIoTDataManager(forKey: AWS_IOT_DATA_MANAGER_KEY)
-       
-        let iot_sample_vc = Iot_sample_ViewController()
-
-//        iotDataManager.publishString("\(aws_post())", onTopic:iot_sample_vc.topic, qoS:.messageDeliveryAttemptedAtMostOnce)
-
         
-        iotDataManager.publishString("\(aws_params.self)", onTopic:iot_sample_vc.topic, qoS:.messageDeliveryAttemptedAtMostOnce)
+        
+        
+        if let theJSONData = try? JSONSerialization.data(
+            withJSONObject: aws_params,
+            options: []) {
+            
+            let theJSONText = String(data: theJSONData,
+                                       encoding: .ascii)
+            print("JSON string = \(theJSONText!)")
+            
+            let iotDataManager = AWSIoTDataManager(forKey: AWS_IOT_DATA_MANAGER_KEY)
+           
+            let iot_sample_vc = Iot_sample_ViewController()
+
+            iotDataManager.publishString(theJSONText!, onTopic:iot_sample_vc.topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
+
+        }
+ 
+
         
     }
     
@@ -114,7 +126,7 @@ class ViewController: UIViewController {
        
         let ios_sample_vc = Iot_sample_ViewController()
 
-        iotDataManager.subscribe(toTopic: ios_sample_vc.topic, qoS: .messageDeliveryAttemptedAtMostOnce, messageCallback: {
+        iotDataManager.subscribe(toTopic: ios_sample_vc.topic_sub, qoS: .messageDeliveryAttemptedAtMostOnce, messageCallback: {
             (payload) ->Void in
             let stringValue = NSString(data: payload, encoding: String.Encoding.utf8.rawValue)!
 
@@ -420,7 +432,7 @@ extension ViewController {
     
     func aws_post() {
         
-        let IOT_ENDPOINT = "https://a2n4hdipq41ly9-ats.iot.ap-south-1.amazonaws.com"
+//        let IOT_ENDPOINT = "https://a2n4hdipq41ly9-ats.iot.ap-south-1.amazonaws.com"
         let aws_params : Parameters = [
         
         
@@ -430,10 +442,28 @@ extension ViewController {
             "speed" : 1
             
         ]
-        test_aws(control: "L", no: 1, state: 1, speed: 1)
-//
-        AF.request(IOT_ENDPOINT, method: .post, parameters: aws_params, encoding: JSONEncoding.default, headers: nil).response { response in
+        
+//        test_aws(control: "L", no: 1, state: 1, speed: 1)
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: aws_params, options: .prettyPrinted)
+            // here "jsonData" is the dictionary encoded in JSON data
+
+            let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            // here "decoded" is of type `Any`, decoded from JSON data
+
+            // you can now cast it with the right type
+            if decoded is [String:String] {
+                // use dictFromJSON
+            }
+        } catch {
+            print(error.localizedDescription)
         }
+//
+//        AF.request(IOT_ENDPOINT, method: .post, parameters: aws_params, encoding: JSONEncoding.default, headers: nil).response { response in
+//
+//
+//        }
         
     }
     

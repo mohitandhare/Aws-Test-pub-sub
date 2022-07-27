@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pyj-SC-8nN">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pyj-SC-8nN">
                                 <rect key="frame" x="100" y="64" width="214" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="XB6-Du-1QB"/>
@@ -27,7 +27,7 @@
                                     <action selector="connect_button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wAn-7B-Xvv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUK-Ej-GU3">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUK-Ej-GU3">
                                 <rect key="frame" x="100" y="144" width="214" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="dBr-ns-Bcq"/>
@@ -44,21 +44,35 @@
                                     <constraint firstAttribute="height" constant="50" id="tiG-5M-8jS"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Pub" cornerStyle="capsule"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="L1 On" cornerStyle="medium"/>
                                 <connections>
                                     <action selector="pub_button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UHn-Wh-mIz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmI-hw-mpr">
+                                <rect key="frame" x="100" y="304" width="214" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="g5Y-Yr-rgL"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="L1 Off" cornerStyle="medium"/>
+                                <connections>
+                                    <action selector="pub_button_off:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iYw-o0-noD"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VmI-hw-mpr" firstAttribute="top" secondItem="BZb-br-f9o" secondAttribute="bottom" constant="30" id="2vv-QG-3fJ"/>
                             <constraint firstItem="YUK-Ej-GU3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8g5-mE-qfx"/>
                             <constraint firstItem="Pyj-SC-8nN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Idf-LH-Myb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VmI-hw-mpr" secondAttribute="trailing" constant="100" id="Mey-Vb-FuW"/>
                             <constraint firstItem="Pyj-SC-8nN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="OFr-8a-xKU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YUK-Ej-GU3" secondAttribute="trailing" constant="100" id="Qg3-gu-uTB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pyj-SC-8nN" secondAttribute="trailing" constant="100" id="axX-Tp-vcY"/>
                             <constraint firstItem="BZb-br-f9o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c7T-bg-eUW"/>
+                            <constraint firstItem="VmI-hw-mpr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="cZ0-id-ncU"/>
                             <constraint firstItem="BZb-br-f9o" firstAttribute="top" secondItem="YUK-Ej-GU3" secondAttribute="bottom" constant="30" id="nvD-Lg-6oq"/>
                             <constraint firstItem="YUK-Ej-GU3" firstAttribute="top" secondItem="Pyj-SC-8nN" secondAttribute="bottom" constant="30" id="qgQ-nq-DHE"/>
                             <constraint firstItem="YUK-Ej-GU3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="vUj-mL-jP2"/>
@@ -67,6 +81,10 @@
                             <constraint firstItem="Pyj-SC-8nN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yXX-qn-cCZ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="L1_Off_outlet" destination="VmI-hw-mpr" id="mQm-NP-RNy"/>
+                        <outlet property="L1_On_outlet" destination="BZb-br-f9o" id="heh-2t-klu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

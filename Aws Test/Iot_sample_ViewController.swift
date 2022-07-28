@@ -17,8 +17,8 @@ class Iot_sample_ViewController: UIViewController {
     var topic_sub : String = "SKSL_1xGLn8/HA/E/ack"
     
     
-    var topic_pub_two: String = "SKSL_AbCd123/HA/A/req"
-    var topic_sub_two : String = "SKSL_AbCd123/HA/E/ack"
+//    var topic_pub_two: String = "SKSL_AbCd123/HA/A/req"
+//    var topic_sub_two : String = "SKSL_AbCd123/HA/E/ack"
     
     override func viewDidLoad() {
         super.viewDidLoad()

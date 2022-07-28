@@ -16,6 +16,7 @@
 		30314E862890088F00E85C55 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 30314E852890088F00E85C55 /* awsconfiguration.json */; };
 		30314E8A289008EB00E85C55 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E89289008EB00E85C55 /* Constants.swift */; };
 		30314E8C2890098800E85C55 /* Iot_sample_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */; };
+		30FD832D289248F200309CF5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FD832C289248F200309CF5 /* CollectionViewCell.swift */; };
 		B05F7E2C06D6A5549CE01A62 /* Pods_Aws_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C080E47AEFA0539720B97CAE /* Pods_Aws_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		30314E852890088F00E85C55 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		30314E89289008EB00E85C55 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Iot_sample_ViewController.swift; sourceTree = "<group>"; };
+		30FD832C289248F200309CF5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		4B7A943F95C8F4A46784F8DA /* Pods-Aws Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aws Test.release.xcconfig"; path = "Target Support Files/Pods-Aws Test/Pods-Aws Test.release.xcconfig"; sourceTree = "<group>"; };
 		B10075D726F59A7F532E7BEE /* Pods-Aws Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aws Test.debug.xcconfig"; path = "Target Support Files/Pods-Aws Test/Pods-Aws Test.debug.xcconfig"; sourceTree = "<group>"; };
 		C080E47AEFA0539720B97CAE /* Pods_Aws_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aws_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 				30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */,
 				30314E74289007AA00E85C55 /* ViewController.swift */,
 				30314E76289007AA00E85C55 /* Main.storyboard */,
+				30FD832C289248F200309CF5 /* CollectionViewCell.swift */,
 				30314E79289007AE00E85C55 /* Assets.xcassets */,
 				30314E7B289007AE00E85C55 /* LaunchScreen.storyboard */,
 				30314E7E289007AE00E85C55 /* Info.plist */,
@@ -220,6 +223,7 @@
 			files = (
 				30314E75289007AA00E85C55 /* ViewController.swift in Sources */,
 				30314E8C2890098800E85C55 /* Iot_sample_ViewController.swift in Sources */,
+				30FD832D289248F200309CF5 /* CollectionViewCell.swift in Sources */,
 				30314E71289007AA00E85C55 /* AppDelegate.swift in Sources */,
 				30314E73289007AA00E85C55 /* SceneDelegate.swift in Sources */,
 				30314E8A289008EB00E85C55 /* Constants.swift in Sources */,

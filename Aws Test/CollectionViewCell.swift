@@ -15,5 +15,8 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var light_image: UIImageView!
     var l_state_value : String!
     var test_two : String!
+    var control_name : String!
+    
+    var control_fan_speed : String!
     
 }

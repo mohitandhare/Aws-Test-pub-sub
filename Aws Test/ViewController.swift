@@ -13,6 +13,12 @@ import Alamofire
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
+    @IBOutlet weak var slider_one: UISlider!
+    
+    
+    @IBOutlet weak var fan_progrss: UIProgressView!
+    
+    
     @IBOutlet weak var collectionView: UICollectionView!
     struct SearchResult: Decodable {
         
@@ -34,9 +40,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     var l_state_array = [Any]()
+    var l_speed_array = [String]()
     var d_no_array = [Any]()
     var c_nm_array = [Any]()
     var final_array = [Any]()
+    var fan_state_array = [Any]()
+    var fan_speed_array = [String]()
     
     var master_array = [Any]()
     
@@ -89,10 +98,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         subscribe_topic_function()
         
+//
+//        slider_one.minimumValue = 1
+//        slider_one.maximumValue = 4
+        
+        
+        
+        
     }
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         
@@ -103,8 +120,80 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         iotDataManager.unsubscribeTopic(iot_sample_vc.topic_sub)
         
         
-        
         collectionView.reloadData()
+        
+    }
+    
+    
+    
+    @IBAction func fan_control_button(_ sender: UISlider) {
+        
+        
+        if (sender.isTracking) {
+//               print("Slider Touched")
+           }
+        else {
+               print("Slider Released")
+               print(sender.value)
+            
+            if sender.value >= 0.10 && sender.value <= 1.0 {
+                
+                publish_button(control: "F", no: 1, state: 1, speed: 1)
+                print("1")
+            }
+            
+            else if sender.value >= 1.0 && sender.value <= 2.0 {
+                
+                publish_button(control: "F", no: 1, state: 1, speed: 2)
+                print("2")
+            }
+            
+            else if sender.value >= 2.0 && sender.value <= 3.0 {
+                
+                publish_button(control: "F", no: 1, state: 1, speed: 3)
+                print("3")
+            }
+            
+            else if sender.value >= 3.0 && sender.value <= 4.0{
+                
+                publish_button(control: "F", no: 1, state: 1, speed: 4)
+                print("4")
+            }
+            
+               
+           }
+        
+        
+    }
+    
+    
+    
+    func Fan_Speed() {
+        
+        if l_speed_array.last == "1" {
+            
+            slider_one.setValue(1, animated: true)
+            
+        }
+        
+       else if l_speed_array.last == "2" {
+           
+           slider_one.setValue(2, animated: true)
+           
+        }
+        
+        else if l_speed_array.last == "3" {
+            
+            slider_one.setValue(3, animated: true)
+            
+        }
+        
+        else if l_speed_array.last == "4" {
+            
+            slider_one.setValue(4, animated: true)
+            
+        }
+        
     }
     
     
@@ -142,38 +231,94 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let model = try JSONDecoder().decode(SearchResult.self, from: params)
             
             let my_l_state = model.L_state
+            let my_l_speed = model.L_speed
             let my_d_no = model.d_no
             let my_master = model.master
             let my_c_nm = model.c_nm
+            let my_fan_state = model.F_state
+            let my_fan_speed = String(model.F_speed)
+            
+            print("my_fan_speed", my_fan_speed)
             
             let separate_l_state = my_l_state.map(String.init)
+            let separate_l_speed = my_l_speed.map(String.init)
             let separate_d_no = my_d_no.map(String.init)
             let separate_c_nm = my_c_nm.map(String.init)
-            
-            print("Separate L State",separate_l_state)
-            print("Separate D_No", separate_d_no)
-            print("Separate C NM", separate_c_nm)
+
+            fan_speed_array.append(my_fan_speed)
+            print("my_fan_speed_in_array", fan_speed_array)
             
             
             l_state_array = separate_l_state
+            l_speed_array = separate_l_speed
             d_no_array = separate_d_no
             c_nm_array = separate_c_nm
             
             
+            
+            fan_state_array.removeAll()
+//            fan_speed_array.removeAll()
+            if my_fan_state == "NA" {
+            }
+
+            else if my_fan_state == "1" {
+                  fan_state_array.append(my_fan_state)
+            }
+
+            else if my_fan_state == "0" {
+                  fan_state_array.append(my_fan_state)
+            }
+
+            else {
+                let Separate_F_State = my_fan_state.map(String.init)
+
+                for separate_f_state in Separate_F_State {
+                    fan_state_array.append(separate_f_state)
+                }
+
+            }
+            
+            
+            
+            
+            print("Separate L State",separate_l_state)
+            print("Separate L Speed", separate_l_speed)
+            print("Separate D_No", separate_d_no)
+            print("Separate C NM", separate_c_nm)
+            
+
+            
+            l_state_array.append(contentsOf: fan_state_array)
+            print("L STATE WITH FAN", l_state_array)
+            d_no_array.append(contentsOf: fan_state_array)
+            print("D_NO WITH FAN", l_state_array)
+            c_nm_array.append("F")
+            print("C N M WITH FAN",c_nm_array)
+
+            l_speed_array.append(contentsOf: fan_speed_array)
+            print("L_SPEED_ARRAY : >> ",l_speed_array)
+            
+            
+           
+            
+            
+            
+            
+//        MARK: MASTER APPEND FUNCTIONS
+           
             master_array.removeAll()
-            var master_state_change = String(my_master)
+            let master_state_change = String(my_master)
             master_array.append(master_state_change)
-            
-            
-            
             l_state_array.append(contentsOf: master_array)
             d_no_array.append(contentsOf: master_array)
             c_nm_array.append("M")
             
             
-            print("L STATE WITH M",l_state_array)
-        print("C N M ARRAY ",c_nm_array)
             
+            
+        print("L STATE WITH M",l_state_array)
+        print("C N M ARRAY ",c_nm_array)
+        print("last _ do ",d_no_array)
                  
         }
         catch {
@@ -645,7 +790,13 @@ extension ViewController {
             
         }
         
+        else if cell.label.text == "F"{
+            
+            cell.light_image.image = UIImage(named: "Fan_1")
+            
+        }
         
+        Fan_Speed()
         
         return cell
     }
@@ -662,6 +813,8 @@ extension ViewController {
         
         cell.test_two = d_no_array[indexPath.row] as? String
         cell.l_state_value = l_state_array[index_Path!.row] as? String
+        cell.control_name = c_nm_array[indexPath.row] as? String
+        
         
         
         
@@ -669,21 +822,42 @@ extension ViewController {
         var L_State_number = Int(cell.l_state_value)
         
         
-        if L_State_number == 1 {
+        
+        
+        /// control Light checking
+        if cell.control_name == "L" {
             
-            publish_button(control: "L", no: number!, state: 0, speed: 0)
-                       
+            if L_State_number == 1 {
+
+                publish_button(control: "L", no: number!, state: 0, speed: 0)
+                
+                
+            }
+            else {
+
+                publish_button(control: "L", no: number!, state: 1, speed: 0)
+                
+            }
         }
         
-        else {
+        
+        /// control name checking
+       if cell.control_name == "M" {
+            print("master")
+            if cell.l_state_value.last == "1" {
+
+                publish_button(control: "M", no: number!, state: 0, speed: 0)
+                
+            }
             
-            publish_button(control: "L", no: number!, state: 1, speed: 0)
+            else {
+                publish_button(control: "M", no: number!, state: 1, speed: 0)
+
+            }
             
         }
-       
         
         
      }
-    
     
 }

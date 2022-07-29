@@ -47,6 +47,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var fan_state_array = [Any]()
     var fan_speed_array = [String]()
     
+    var fan_speed_number : Int = 0
+    
     var master_array = [Any]()
     
     
@@ -193,6 +195,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             slider_one.setValue(4, animated: true)
             
         }
+        else if l_speed_array.last == "0" {
+            
+            slider_one.isHidden = true
+        }
         
     }
     
@@ -238,6 +244,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let my_fan_state = model.F_state
             let my_fan_speed = String(model.F_speed)
             
+            fan_speed_number = Int(model.F_speed)!
+            print("fan_speed_number :>>>>",fan_speed_number)
+            
             print("my_fan_speed", my_fan_speed)
             
             let separate_l_state = my_l_state.map(String.init)
@@ -245,6 +254,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let separate_d_no = my_d_no.map(String.init)
             let separate_c_nm = my_c_nm.map(String.init)
 
+            
+            fan_speed_array.removeAll()
             fan_speed_array.append(my_fan_speed)
             print("my_fan_speed_in_array", fan_speed_array)
             
@@ -258,14 +269,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             fan_state_array.removeAll()
 //            fan_speed_array.removeAll()
-            if my_fan_state == "NA" {
+            if my_fan_state == "NA" || my_fan_state == "N/A"{
+                
+                
             }
 
             else if my_fan_state == "1" {
-                  fan_state_array.append(my_fan_state)
+                
+                fan_state_array.append(my_fan_state)
             }
 
             else if my_fan_state == "0" {
+                
+                
                   fan_state_array.append(my_fan_state)
             }
 
@@ -287,16 +303,25 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("Separate C NM", separate_c_nm)
             
 
+            if my_fan_state == "NA" || my_fan_state == "N/A"{
+          
+            }
             
+            else {
+                
             l_state_array.append(contentsOf: fan_state_array)
             print("L STATE WITH FAN", l_state_array)
             d_no_array.append(contentsOf: fan_state_array)
             print("D_NO WITH FAN", l_state_array)
+            
             c_nm_array.append("F")
             print("C N M WITH FAN",c_nm_array)
-
+                
+                
             l_speed_array.append(contentsOf: fan_speed_array)
             print("L_SPEED_ARRAY : >> ",l_speed_array)
+            }
+           
             
             
            
@@ -795,8 +820,9 @@ extension ViewController {
             cell.light_image.image = UIImage(named: "Fan_1")
             
         }
+            Fan_Speed()
         
-        Fan_Speed()
+        
         
         return cell
     }
@@ -821,7 +847,7 @@ extension ViewController {
         var number = Int(cell.test_two)
         var L_State_number = Int(cell.l_state_value)
         
-        
+        print("L STATE NUMBER : **** ", L_State_number)
         
         
         /// control Light checking
@@ -841,21 +867,87 @@ extension ViewController {
         }
         
         
+        
+        if cell.control_name == "F" {
+            
+            if L_State_number == 1 {
+
+                
+                publish_button(control: "F", no: 1, state: 0, speed: fan_speed_number)
+                slider_one.isEnabled = false
+                slider_one.thumbTintColor = UIColor.gray
+                self.slider_one.minimumTrackTintColor = UIColor.gray
+                self.slider_one.maximumTrackTintColor = UIColor.gray
+
+                
+            }
+            else {
+                
+                publish_button(control: "F", no: 1, state: 1, speed: fan_speed_number)
+                slider_one.isEnabled = true
+                slider_one.thumbTintColor = UIColor.yellow
+                self.slider_one.minimumTrackTintColor = UIColor.yellow
+                self.slider_one.maximumTrackTintColor = UIColor.gray
+
+            }
+        }
+        
+        
+        
+        
         /// control name checking
        if cell.control_name == "M" {
             print("master")
+           
             if cell.l_state_value.last == "1" {
-
+                
                 publish_button(control: "M", no: number!, state: 0, speed: 0)
+                
+                
+                
+                if L_State_number == 1 {
+                    
+                    slider_one.isEnabled = true
+                    slider_one.thumbTintColor = UIColor.yellow
+                    self.slider_one.minimumTrackTintColor = UIColor.yellow
+                    self.slider_one.maximumTrackTintColor = UIColor.gray
+
+                    
+                }
+                
+                else {
+                    let when = DispatchTime.now() + 0.5
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.slider_one.isEnabled = false
+                        self.slider_one.thumbTintColor = UIColor.gray
+                        self.slider_one.minimumTrackTintColor = UIColor.yellow
+                        self.slider_one.maximumTrackTintColor = UIColor.gray
+                    }
+                    
+                }
                 
             }
             
             else {
                 publish_button(control: "M", no: number!, state: 1, speed: 0)
+                
+                let when = DispatchTime.now() + 0.5
+                
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.slider_one.isEnabled = false
+                    self.slider_one.thumbTintColor = UIColor.gray
+                    self.slider_one.minimumTrackTintColor = UIColor.gray
+                    self.slider_one.maximumTrackTintColor = UIColor.gray
 
+                }
+                
             }
             
         }
+        
+        
+        
         
         
      }

@@ -12,9 +12,21 @@ import Alamofire
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
  
+    @IBOutlet weak var blur_effect: UIVisualEffectView!
+    //    MARK: ======================= scene_array ===============================
+    
+    @IBOutlet weak var scene_CollectionView: UICollectionView!
     
     
-//    MARK: =======================scene_outlets===============================
+    var scene_array = ["Scene 1", "Scene 2", "Scene 3", "Scene 4", "Scene 5", "Scene 6","Scene 7","Scene 8"]
+    
+    
+    //    MARK: ======================= scene_array ===============================
+    
+    
+    
+    
+//    MARK: ======================= scene_outlets ===============================
     
     
     @IBOutlet weak var scene_outlet_one: UIButton!
@@ -26,8 +38,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var scene_outlet_four: UIButton!
     
     
-//    MARK: =======================scene_outlets===============================
+//    MARK: =======================scene_outlets CLOSED===============================
     
+//MARK: ==== TOGGLE OUTLET ====
+    
+    @IBOutlet weak var toggle_button_outlet: UISwitch!
+    var toggle_value = 0
+    
+//MARK: ==== TOGGLE OUTLET ====
     
     
     @IBOutlet weak var slider_one: UISlider!
@@ -80,14 +98,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var master_array = [Any]()
     
     
+//MARK: ===== CHILD LOCK ARRAY'S =====
+    
+    var child_lock_L_array = [Any]()
+    var child_lock_F_array = [Any]()
+    var child_lock_M_array = [Any]()
+    
+//MARK: ===== CHILD LOCK ARRAY'S CLOSED =====
+    
     var c_dim_array = [String]()
     
     var dim_control_level : Int = 0
     var dim_control_number : Int = 0
     
     var temp_dim_number : Int = 0
-    
-//MARK: === HAVE TODO ===
+
 //MARK: ==== NO CONNECTION =====
     @IBOutlet weak var L1_On_outlet: UIButton!
     
@@ -117,9 +142,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var my_test : String!
 //    =============
 
-    //    MARK: === HAVE TODO ===
+    
+    var stepper_label_in_pop : UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if toggle_value == 0 {
+            
+            toggle_button_outlet.setOn(false, animated: true)
+            
+        }
+        
         
         
         
@@ -132,7 +167,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        
+        scene_CollectionView.delegate = self
+        scene_CollectionView.dataSource = self
+        
         collectionView.reloadData()
+        scene_CollectionView.reloadData()
 
 //    MARK: ==== LONG PRESS EVENT ====
         
@@ -146,30 +187,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
 //        MARK: ================== SCENE LONG PRESS ==================
+//
+//        let tapGesture = UITapGestureRecognizer(target: self,action: #selector (tap))
+//        tapGesture.numberOfTapsRequired = 1
+//        tapGesture.delegate = self
+
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(long(gestureRecognizer:)))
         
-        let tapGesture = UITapGestureRecognizer(target: self,action: #selector (tap))
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(long))
-
-        tapGesture.numberOfTapsRequired = 1
-        longGesture.numberOfTapsRequired = 3
-
-
-        scene_outlet_one.addGestureRecognizer(tapGesture)
-        scene_outlet_one.addGestureRecognizer(longGesture)
-
-        scene_outlet_two.addGestureRecognizer(tapGesture)
-        scene_outlet_two.addGestureRecognizer(longGesture)
-
-        scene_outlet_three.addGestureRecognizer(tapGesture)
-        scene_outlet_three.addGestureRecognizer(longGesture)
-
-        scene_outlet_four.addGestureRecognizer(tapGesture)
-        scene_outlet_four.addGestureRecognizer(longGesture)
-
+        longGesture.minimumPressDuration = 1
         longGesture.delegate = self
-//        longGesture.delaysTouchesBegan = true
+        longGesture.delaysTouchesBegan = true
+        scene_CollectionView.addGestureRecognizer(longGesture)
+ 
 
-//        MARK: ================== SCENE LONG PRESS ==================
+//        MARK: ================== SCENE LONG PRESS CLOSED ==================
         
         
         
@@ -179,9 +210,178 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         navigationController?.navigationBar.tintColor = .white
         
-        
+        let value = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
         
      }
+    
+    
+//MARK: === ALL DIM TOGGLE BUTTON FUNCTION ===
+    
+    
+    @IBAction func all_dim_toggle_button(_ sender: UISwitch) {
+        
+        if sender.isOn {
+            
+            
+
+                //create the Alert message with extra return spaces
+                let sliderAlert = UIAlertController(title: "Set All Dim State", message: "Increase/Decrease", preferredStyle: .alert)
+
+                //create a Slider and fit within the extra message spaces
+                //add the Slider to a Subview of the sliderAlert
+                
+            
+                let stepper = UIStepper(frame:CGRect(x: 50, y: 100, width: 250, height: 80))
+                    stepper_label_in_pop = UILabel(frame:CGRect(x: 180, y: 95, width: 50, height: 40))
+            
+            stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
+            
+            stepper.minimumValue = 1
+            stepper.maximumValue = 7
+            stepper.tintColor = UIColor.gray
+            
+            stepper_label_in_pop.tintColor = UIColor.gray
+            
+            stepper_label_in_pop.text = String(stepper.minimumValue)
+            
+            sliderAlert.view.addSubview(stepper_label_in_pop)
+            
+                sliderAlert.view.addSubview(stepper)
+                
+                //OK button action
+                let sliderAction = UIAlertAction(title: "OK", style: .default, handler: { (result : UIAlertAction) -> Void in
+                    
+                    
+    //            MARK: CODE IN THIS
+                    
+                    })
+
+                //Cancel button action
+                let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+
+                //Add buttons to sliderAlert
+                sliderAlert.addAction(sliderAction)
+                sliderAlert.addAction(cancelAction)
+
+                //present the sliderAlert message
+                self.present(sliderAlert, animated: true, completion: nil)
+            
+            
+        }
+     }
+    
+//MARK: ===== ALL DIM POPUP STEPPER FUNCTION =====
+    
+    @objc func stepperValueChanged(_ sender: UIStepper) {
+        
+        print(sender.value)
+        
+        stepper_label_in_pop.text = String(sender.value)
+    }
+    
+    
+//MARK: ===== ALL DIM POPUP STEPPER FUNCTION CLOSED =====
+    
+    
+//MARK: ===== MENU OPTION =====
+    
+    
+//MARK: ===== MENU BUTTON =====
+    
+    @objc func Menu_Button() {
+        
+        
+        menu_alert_box()
+        
+    }///_CLOSED
+    
+    
+    
+//MARK: ===== NAVIGATION FUNCTION TO DIM PAGE =====
+    
+    func Navigate_To_Dim_Config_Page() {
+        
+        let dim_config_vc : Dim_Config_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Dim_Config_ViewController") as! Dim_Config_ViewController
+        
+        
+        
+        dim_config_vc.dim_array = c_dim_array
+        dim_config_vc.c_nm_array = c_nm_array
+        
+        present(dim_config_vc, animated: true)
+        
+        
+    } ///_CLOSED
+    
+    
+    
+    func Navigate_To_Child_Lock_page() {
+        
+        let child_lock_vc : Child_lock_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Child_lock_ViewController") as! Child_lock_ViewController
+        
+        
+        child_lock_vc.child_lock_vc_c_name = c_nm_array
+        child_lock_vc.child_lock_vc_light_array = child_lock_L_array
+        child_lock_vc.child_lock_vc_fan_array = child_lock_F_array
+        child_lock_vc.child_lock_vc_master_array = child_lock_M_array
+        
+        self.navigationController?.pushViewController(child_lock_vc, animated: true)
+        
+    }
+    
+    
+    
+//MARK: ===== ALERT BOX FOR MENU =====
+    
+    func menu_alert_box() {
+        
+        
+        let alert = UIAlertController(title: "Select Your Option", message: "", preferredStyle: .actionSheet)
+        
+        
+        let dim_option = UIAlertAction(title: "Dim Configure", style: .default) { action in
+            
+            self.Navigate_To_Dim_Config_Page()
+            print("Dim Selected")
+            
+        }
+        
+        
+        let child_lock = UIAlertAction(title: "Child Lock", style: .default) { action in
+            
+            self.Navigate_To_Child_Lock_page()
+            
+            print("Child Lock Selected")
+        }
+        
+        alert.addAction(dim_option)
+        alert.addAction(child_lock)
+        
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        
+        present(alert, animated: true)
+        
+        
+        
+    }///_CLOSED
+    
+    
+    
+//MARK: ===== MENU OPTION =====
+    
+//MARK: === ALL DIM TOGGLE BUTTON FUNCTION ===
+    
+    
+    //MARK: ORIENTATION
+        
+        override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+            return .portrait
+        }
+        
+    //MARK: ORIENTATION
+    
     
 //MARK: Scene BUTTON ACTIONS ==========
    
@@ -209,11 +409,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
         }
      }
-    
-    
-    
-    
-    @objc func tap(control_no: Int) {
+
+    func tap(control_no: Int) {
 
        print("TAPPED >>>>>>>>> ",control_no)
         
@@ -222,15 +419,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
 
-    @objc func long(config_no: Int) {
+    @objc func long(gestureRecognizer: UILongPressGestureRecognizer) {
+        if (gestureRecognizer.state != .began) {
+            
+            return
+            
+        }
 
+        let p = gestureRecognizer.location(in: scene_CollectionView)
 
-        publish_scene_function(control_state: "scene_config", control_no: config_no)
-        scene_btn_long_press_func()
-        print("Long press", config_no)
-    }
-    
-    
+        if let indexPath = scene_CollectionView?.indexPathForItem(at: p) {
+            print("Long press at item: \(indexPath.row)")
+            
+            publish_scene_function(control_state: "scene_config", control_no: indexPath.row + 1)
+                    scene_btn_long_press_func()
+                    print("Long press")
+            }
+            
+          }
     
     func scene_btn_long_press_func() {
         
@@ -283,46 +489,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         print(sender.tag)
         
     }
-    
-    
-    func addLongPressGesture(){
-        
-    }
-    
-    
-    
+ 
     
     
     //    MARK: =======================scene_buttons===============================
     
-    
-    override open var shouldAutorotate: Bool {
-       return false
-    }
-
-    // Specify the orientation.
-    
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-       return .portrait
-    }
-    
-    
-    
-    @objc func Menu_Button() {
-        
-        
-        Long_Press_Pop_Up()
-        
-    }
-    
-    
-    
-    
-    
+ 
+//    MARK: =================
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if (gestureRecognizer.state != .began) {
+            
             return
+            
         }
 
         let p = gestureRecognizer.location(in: collectionView)
@@ -363,25 +542,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
           }
     }
+//MARK: ========================
     
     
-    
-    func Long_Press_Pop_Up() {
-        
-        let dim_config_vc : Dim_Config_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Dim_Config_ViewController") as! Dim_Config_ViewController
-        
-        
-        
-        dim_config_vc.dim_array = c_dim_array
-        dim_config_vc.c_nm_array = c_nm_array
-        
-        present(dim_config_vc, animated: true)
-        
-        
-    }
-    
-    
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -389,7 +553,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
     }
-    ///_ UPPER ======
+    
     
     
     
@@ -411,6 +575,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
         collectionView.reloadData()
+        
+    }
+//MARK: ===== FAN CONTROL FUNCTIONS =====
+    
+    
+    @IBAction func fan_stepper(_ sender: UIStepper) {
+        
+        
+        
+        let fan_stepper_value = Int(sender.value)
+        
+        publish_button(control: "F", no: 1, state: 1, speed: fan_stepper_value)
+        
         
     }
     
@@ -490,43 +667,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    
-    
-//MARK: Scene BUTTON ACTIONS ==========
-   
-//    func publish_scene_function(control_state : String, control_no: Int) {
-//
-//        let scene_pub_parameters : Parameters = [
-//
-//            "control" : control_state,
-//            "no" : control_no
-//
-//        ]
-//
-//        if let theJSONData = try? JSONSerialization.data(withJSONObject: scene_pub_parameters,options: []) {
-//
-//            let theJSONText = String(data: theJSONData,
-//                                     encoding: .ascii)
-//            print("JSON string = \(theJSONText!)")
-//
-//
-//            let iotDataManager = AWSIoTDataManager(forKey: AWS_IOT_DATA_MANAGER_KEY)
-//
-//            let iot_sample_vc = Iot_sample_ViewController()
-//
-//            iotDataManager.publishString(theJSONText!, onTopic:iot_sample_vc.topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
-//
-//        }
-//     }
-//
-//
+//MARK: ===== FAN CONTROL FUNCTIONS CLOSED =====
     
     
     
-    
-    
-//    =============================================
-    
+    @IBAction func dim_stepper_button(_ sender: UIStepper) {
+        
+      
+        let dim_stepper = Int(sender.value)
+        
+        publish_button(control: "L", no: dim_control_number, state: 1, speed: dim_stepper)
+        
+    }
     
     @IBAction func dim_control_button(_ sender: UISlider) {
         
@@ -645,7 +797,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let my_fan_speed = String(model.F_speed)
            
             let my_dim_config = model.c_dim
-       
+            
+            
+            
+//        MARK: ==== CHILD LOCK MODEL TO ARRAY =====
+
+            
+            let child_light_lock = model.c_l
+            let child_fan_lock = model.c_f
+            let child_master_lock = model.c_m
+            
+            
+//        MARK: ==== CHILD LOCK MODEL TO ARRAY CLOSED =====
+            
+            
+            
+//        MARK: ===== SEPARATE CHILD LOCKS =====
+            
+            let separate_child_light_lock = child_light_lock.map(String.init)
+            let separate_child_fan_lock = child_fan_lock.map(String.init)
+            
+            child_lock_L_array = separate_child_light_lock
+            child_lock_F_array = separate_child_fan_lock
+            child_lock_M_array.append(child_master_lock)
+            
+            print("child_lock_L_array : >>",child_lock_L_array)
+            print("child_lock_F_array : >>",child_lock_F_array)
+            print("child_lock_M_array : >>",child_lock_M_array)
+            
+            
+//        MARK: ===== SEPARATE CHILD LOCKS =====
             print("Model DIM LEVEL", my_dim_config)
             
             //MARK: ==================
@@ -882,13 +1063,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func publish_button(control: String, no: Int, state: Int, speed: Int) {
         
         let fetch_all_params : Parameters = [
-            
+
             "control": control,
             "no" : no,
             "state" : state,
             "speed" : speed
-            
+
         ]
+//
+//        
+//        let fetch_all_params : Parameters = [
+//
+//            "aws_fade" : 100,
+//            "aws_red" : 255,
+//            "aws_green" : 128,
+//            "aws_blue" : 0
+//
+//        ]
         
         
         
@@ -1198,208 +1389,260 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 extension ViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return l_state_array.count
+        
+        if collectionView == self.collectionView {
+            return l_state_array.count
+            
+        }
+        else {
+            
+            return scene_array.count
+            
+            
+        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollCell", for: indexPath) as! CollectionViewCell
         
+        if collectionView == self.collectionView {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollCell", for: indexPath) as! CollectionViewCell
+             
+             
+             cell.label.text = c_nm_array[indexPath.row] as? String
+             cell.l_state_value = l_state_array[indexPath.row] as? String
+             
+             
+             cell.collView.layer.cornerRadius = 10
+             cell.collView.layer.borderWidth = 2
+             cell.collView.layer.borderColor = UIColor.black.cgColor
+             
+             
+             if cell.label.text == "L" {
+             cell.dim_level = c_dim_array[indexPath.row]
+             
+             
+             
+             
+             let test_dim = cell.dim_level
+             
+             
+             if test_dim == "1" {
+                 
+                 
+                 cell.dim_blub.image = UIImage(systemName: "lightbulb.fill")
+                 
+                 
+             }
+             
+             else if test_dim == "0" {
+              
+                 cell.dim_blub.image = UIImage(systemName: "")
+                 
+             }
+             }
+             
+             if cell.label.text == "F" {
+                 
+                 cell.dim_blub.image = UIImage(systemName: "")
+                 
+             }
+             
+             if cell.label.text == "M" {
+                 
+                 cell.dim_blub.image = UIImage(systemName: "")
+                 
+             }
+             
+             
+             
+             if cell.l_state_value == "1" {
+                 
+                 cell.collView.layer.borderColor = UIColor.yellow.cgColor
+                 cell.light_image.image = UIImage(named: "Light_Off")
+             }
+             
+             
+             else if cell.l_state_value == "0"{
+                 
+                 cell.collView.layer.borderColor = UIColor.black.cgColor
+                 cell.light_image.image = UIImage(named: "Light_On")
+             }
+             
+             
+             
+             else if cell.label.text == "L" {
+                 
+                 cell.light_image.image = UIImage(named: "Light_Off")
+                 
+             }
+             
+             if cell.label.text == "M"{
+                 
+                 cell.light_image.image = UIImage(named: "Master")
+                 
+             }
+             
+             else if cell.label.text == "F"{
+                 
+                 cell.light_image.image = UIImage(named: "Fan_1")
+                 
+             }
+                 Fan_Speed()
+             
+             
+             
+             return cell
+            
+        }
         
-        cell.label.text = c_nm_array[indexPath.row] as? String
-        cell.l_state_value = l_state_array[indexPath.row] as? String
-        
-        
-        cell.collView.layer.cornerRadius = 10
-        cell.collView.layer.borderWidth = 2
-        cell.collView.layer.borderColor = UIColor.black.cgColor
-        
-        
-        if cell.label.text == "L" {
-        cell.dim_level = c_dim_array[indexPath.row]
-        
-        
-        
-        
-        let test_dim = cell.dim_level
-        
-        
-        if test_dim == "1" {
+        else {
             
             
-            cell.dim_blub.image = UIImage(systemName: "lightbulb.fill")
+            
+            let cell_scene = collectionView.dequeueReusableCell(withReuseIdentifier: "Scene_Cell", for: indexPath) as! Scene_CollectionViewCell
+            
+            cell_scene.scene_view.layer.cornerRadius = 10
+            cell_scene.scene_view.layer.borderWidth = 2
+            cell_scene.scene_view.layer.borderColor = UIColor.black.cgColor
+            
+            cell_scene.scene_label.text = scene_array[indexPath.row]
+            
+            
+            return cell_scene
             
             
         }
         
-        else if test_dim == "0" {
-         
-            cell.dim_blub.image = UIImage(systemName: "")
-            
-        }
-        }
-        
-        if cell.label.text == "F" {
-            
-            cell.dim_blub.image = UIImage(systemName: "")
-            
-        }
-        
-        if cell.label.text == "M" {
-            
-            cell.dim_blub.image = UIImage(systemName: "")
-            
-        }
-        
-        
-        
-        if cell.l_state_value == "1" {
-            
-            cell.collView.layer.borderColor = UIColor.yellow.cgColor
-            cell.light_image.image = UIImage(named: "Light_Off")
-        }
-        
-        
-        else if cell.l_state_value == "0"{
-            
-            cell.collView.layer.borderColor = UIColor.black.cgColor
-            cell.light_image.image = UIImage(named: "Light_On")
-        }
-        
-        
-        
-        else if cell.label.text == "L" {
-            
-            cell.light_image.image = UIImage(named: "Light_Off")
-            
-        }
-        
-        if cell.label.text == "M"{
-            
-            cell.light_image.image = UIImage(named: "Master")
-            
-        }
-        
-        else if cell.label.text == "F"{
-            
-            cell.light_image.image = UIImage(named: "Fan_1")
-            
-        }
-//            Fan_Speed()
-        
-        
-        
-        return cell
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
 
-        let index_Path = collectionView.indexPathsForSelectedItems?.first
-
-        print(index_Path!)
-
-
-
-        
-        
-        
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollCell", for: indexPath) as! CollectionViewCell
-        
-        cell.test_two = d_no_array[indexPath.row] as? String
-        cell.l_state_value = l_state_array[index_Path!.row] as? String
-        cell.control_name = c_nm_array[indexPath.row] as? String
-       
-        
-        
-        
-        
-        
-        
-        
-        let number = Int(cell.test_two)
-        let L_State_number = Int(cell.l_state_value)
-        
-        print("L STATE NUMBER : **** ", L_State_number as Any)
-        print("MY DIM LEVEL : >>> ",cell.dim_level as Any)
-     
-        /// control Light checking
-        if cell.control_name == "L" {
+        if collectionView == self.collectionView {
             
-            if L_State_number == 1 {
-
-                publish_button(control: "L", no: number!, state: 0, speed: 0)
-                
-                
-            }
-            else {
-
-                publish_button(control: "L", no: number!, state: 1, speed: 0)
-                
-            }
-        }
-        
-        
-        
-        if cell.control_name == "F" {
             
-            if L_State_number == 1 {
+            
+            let index_Path = collectionView.indexPathsForSelectedItems?.first
 
-                
-                publish_button(control: "F", no: 1, state: 0, speed: fan_speed_number)
-               
-                slider_one.isEnabled = false
-                
-                slider_one.thumbTintColor = UIColor.gray
-                slider_one.minimumTrackTintColor = UIColor.gray
-                slider_one.maximumTrackTintColor = UIColor.gray
-                
-                
-            }
-            else {
-                
-                publish_button(control: "F", no: 1, state: 1, speed: fan_speed_number)
-               
-                slider_one.isEnabled = true
-                
-                slider_one.thumbTintColor = UIColor.white
-                slider_one.minimumTrackTintColor = UIColor.yellow
-                slider_one.maximumTrackTintColor = UIColor.gray
-                
-               
-
-            }
-        }
-        
-        
-        
-        
-        /// control name checking
-        
-       if cell.control_name == "M" {
+            print(index_Path!)
+            
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollCell", for: indexPath) as! CollectionViewCell
+            
+            cell.test_two = d_no_array[indexPath.row] as? String
+            cell.l_state_value = l_state_array[index_Path!.row] as? String
+            cell.control_name = c_nm_array[indexPath.row] as? String
            
-           print("master")
-           
-            if cell.l_state_value.last == "1" {
-                
-                publish_button(control: "M", no: number!, state: 0, speed: 0)
-                
-                
+            
+            
+            
+            
+            
+            
+            
+            let number = Int(cell.test_two)
+            let L_State_number = Int(cell.l_state_value)
+            
+            print("L STATE NUMBER : **** ", L_State_number as Any)
+            print("MY DIM LEVEL : >>> ",cell.dim_level as Any)
+         
+            /// control Light checking
+            if cell.control_name == "L" {
                 
                 if L_State_number == 1 {
+
+                    publish_button(control: "L", no: number!, state: 0, speed: 0)
                     
+                    
+                }
+                else {
+
+                    publish_button(control: "L", no: number!, state: 1, speed: 0)
+                    
+                }
+            }
+            
+            
+            
+            if cell.control_name == "F" {
+                
+                if L_State_number == 1 {
+
+                    
+                    publish_button(control: "F", no: 1, state: 0, speed: fan_speed_number)
+                   
+                    slider_one.isEnabled = false
+                    
+                    slider_one.thumbTintColor = UIColor.gray
+                    slider_one.minimumTrackTintColor = UIColor.gray
+                    slider_one.maximumTrackTintColor = UIColor.gray
+                    
+                    
+                }
+                else {
+                    
+                    publish_button(control: "F", no: 1, state: 1, speed: fan_speed_number)
+                   
                     slider_one.isEnabled = true
                     
-                    self.slider_one.thumbTintColor = UIColor.white
-                    self.slider_one.minimumTrackTintColor = UIColor.yellow
-                    self.slider_one.maximumTrackTintColor = UIColor.gray
-                                        
+                    slider_one.thumbTintColor = UIColor.white
+                    slider_one.minimumTrackTintColor = UIColor.yellow
+                    slider_one.maximumTrackTintColor = UIColor.gray
+                    
+                 }
+            }
+            
+            
+            
+            
+            /// control name checking
+            
+           if cell.control_name == "M" {
+               
+               print("master")
+               
+                if cell.l_state_value.last == "1" {
+                    
+                    publish_button(control: "M", no: number!, state: 0, speed: 0)
+                    
+                    
+                    
+                    if L_State_number == 1 {
+                        
+                        slider_one.isEnabled = true
+                        
+                        self.slider_one.thumbTintColor = UIColor.white
+                        self.slider_one.minimumTrackTintColor = UIColor.yellow
+                        self.slider_one.maximumTrackTintColor = UIColor.gray
+                                            
+                    }
+                    
+                    else {
+                       
+                        let when = DispatchTime.now() + 0.1
+                        
+                        DispatchQueue.main.asyncAfter(deadline: when) {
+                            self.slider_one.isEnabled = false
+                            
+                            self.slider_one.thumbTintColor = UIColor.gray
+                            self.slider_one.minimumTrackTintColor = UIColor.gray
+                            self.slider_one.maximumTrackTintColor = UIColor.gray
+                            
+                        }
+                        
+                    }
+                    
                 }
                 
                 else {
-                   
+                    
+                    publish_button(control: "M", no: number!, state: 1, speed: 0)
+                    
                     let when = DispatchTime.now() + 0.1
                     
                     DispatchQueue.main.asyncAfter(deadline: when) {
@@ -1409,31 +1652,28 @@ extension ViewController {
                         self.slider_one.minimumTrackTintColor = UIColor.gray
                         self.slider_one.maximumTrackTintColor = UIColor.gray
                         
+
                     }
                     
                 }
                 
             }
             
-            else {
-                
-                publish_button(control: "M", no: number!, state: 1, speed: 0)
-                
-                let when = DispatchTime.now() + 0.1
-                
-                DispatchQueue.main.asyncAfter(deadline: when) {
-                    self.slider_one.isEnabled = false
-                    
-                    self.slider_one.thumbTintColor = UIColor.gray
-                    self.slider_one.minimumTrackTintColor = UIColor.gray
-                    self.slider_one.maximumTrackTintColor = UIColor.gray
-                    
-
-                }
-                
-            }
+            
             
         }
+        
+        
+        else {
+            
+            
+                tap(control_no: indexPath.row + 1)
+            
+            
+            
+        }
+            
+       
         
      }
     

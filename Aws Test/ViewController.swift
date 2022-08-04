@@ -100,9 +100,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 //MARK: ===== CHILD LOCK ARRAY'S =====
     
-    var child_lock_L_array = [Any]()
-    var child_lock_F_array = [Any]()
-    var child_lock_M_array = [Any]()
+    var child_lock_L_array = [""]
+    var child_lock_F_array = [""]
+    var child_lock_M_array = [""]
     
 //MARK: ===== CHILD LOCK ARRAY'S CLOSED =====
     
@@ -144,7 +144,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     
     var stepper_label_in_pop : UILabel!
-    
+    var stepper_my_value : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -226,14 +226,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
 
                 //create the Alert message with extra return spaces
-                let sliderAlert = UIAlertController(title: "Set All Dim State", message: "Increase/Decrease", preferredStyle: .alert)
+                let sliderAlert = UIAlertController(title: "Set All Dim State", message: "Increase/Decrease \n\n\n\n\n\n", preferredStyle: .alert)
 
                 //create a Slider and fit within the extra message spaces
                 //add the Slider to a Subview of the sliderAlert
                 
             
                 let stepper = UIStepper(frame:CGRect(x: 50, y: 100, width: 250, height: 80))
-                    stepper_label_in_pop = UILabel(frame:CGRect(x: 180, y: 95, width: 50, height: 40))
+                stepper_label_in_pop = UILabel(frame:CGRect(x: 180, y: 100, width: 50, height: 40))
             
             stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
             
@@ -252,6 +252,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 //OK button action
                 let sliderAction = UIAlertAction(title: "OK", style: .default, handler: { (result : UIAlertAction) -> Void in
                     
+                    
+                    self.all_dim_function()
                     
     //            MARK: CODE IN THIS
                     
@@ -275,9 +277,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @objc func stepperValueChanged(_ sender: UIStepper) {
         
-        print(sender.value)
+        stepper_my_value = String(sender.value)
+        
+        print(stepper_my_value!)
         
         stepper_label_in_pop.text = String(sender.value)
+    }
+    
+    func all_dim_function() {
+        
+        
+        let dim_pub_parameters : Parameters = [
+        
+            "control" : "all_dim",
+            "speed" : stepper_my_value!
+        
+        ]
+        
+        if let theJSONData = try? JSONSerialization.data(withJSONObject: dim_pub_parameters,options: []) {
+            
+            let theJSONText = String(data: theJSONData,
+                                     encoding: .ascii)
+            print("JSON string = \(theJSONText!)")
+            
+            
+            let iotDataManager = AWSIoTDataManager(forKey: AWS_IOT_DATA_MANAGER_KEY)
+            
+            let iot_sample_vc = Iot_sample_ViewController()
+            
+            iotDataManager.publishString(theJSONText!, onTopic:iot_sample_vc.topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
+            
+        }
+        
+        
     }
     
     
@@ -826,6 +858,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("child_lock_M_array : >>",child_lock_M_array)
             
             
+            
 //        MARK: ===== SEPARATE CHILD LOCKS =====
             print("Model DIM LEVEL", my_dim_config)
             
@@ -1061,7 +1094,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func publish_button(control: String, no: Int, state: Int, speed: Int) {
-        
+
         let fetch_all_params : Parameters = [
 
             "control": control,
@@ -1070,17 +1103,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             "speed" : speed
 
         ]
+
 //
-//        
 //        let fetch_all_params : Parameters = [
 //
-//            "aws_fade" : 100,
-//            "aws_red" : 255,
-//            "aws_green" : 128,
-//            "aws_blue" : 0
+//            "control" : "LED_STRIP",
+//            "red" : 255,
+//            "green" : 200,
+//            "blue" : 0
 //
 //        ]
-        
+
         
         
         if let theJSONData = try? JSONSerialization.data(withJSONObject: fetch_all_params,options: []) {

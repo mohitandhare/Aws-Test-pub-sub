@@ -462,7 +462,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7bu-gg-DBy">
-                                <rect key="frame" x="5" y="49" width="404" height="808"/>
+                                <rect key="frame" x="5" y="49" width="404" height="713"/>
                                 <color key="backgroundColor" red="0.17166277769999999" green="0.17541572450000001" blue="0.2124480903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nP5-5l-zkB">
                                     <size key="itemSize" width="128" height="128"/>
@@ -522,13 +522,29 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poP-XI-9JX">
+                                <rect key="frame" x="100" y="782" width="214" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZmS-tf-XIp"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="publish_child_lock_button:" destination="9Pu-Zj-Idu" eventType="touchUpInside" id="vJl-qb-Asi"/>
+                                    <action selector="save_dim_config_button:" destination="Qqi-xG-qgh" eventType="touchUpInside" id="Dp7-aF-osV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5uq-Yb-DsF"/>
                         <color key="backgroundColor" red="0.17166277769999999" green="0.17541572450000001" blue="0.2124480903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5uq-Yb-DsF" firstAttribute="bottom" secondItem="7bu-gg-DBy" secondAttribute="bottom" constant="5" id="FWC-Hy-5yt"/>
+                            <constraint firstItem="5uq-Yb-DsF" firstAttribute="bottom" secondItem="7bu-gg-DBy" secondAttribute="bottom" constant="100" id="FWC-Hy-5yt"/>
+                            <constraint firstItem="5uq-Yb-DsF" firstAttribute="trailing" secondItem="poP-XI-9JX" secondAttribute="trailing" constant="100" id="OEE-dh-kv1"/>
+                            <constraint firstItem="poP-XI-9JX" firstAttribute="centerX" secondItem="nmJ-71-ga0" secondAttribute="centerX" id="OSA-d5-1ey"/>
+                            <constraint firstItem="poP-XI-9JX" firstAttribute="top" secondItem="7bu-gg-DBy" secondAttribute="bottom" constant="20" id="Uqi-BY-Lva"/>
                             <constraint firstItem="5uq-Yb-DsF" firstAttribute="trailing" secondItem="7bu-gg-DBy" secondAttribute="trailing" constant="5" id="WFT-RU-brm"/>
                             <constraint firstItem="7bu-gg-DBy" firstAttribute="top" secondItem="5uq-Yb-DsF" secondAttribute="top" constant="5" id="X8t-ZS-MZb"/>
+                            <constraint firstItem="poP-XI-9JX" firstAttribute="leading" secondItem="5uq-Yb-DsF" secondAttribute="leading" constant="100" id="erP-ET-dGk"/>
                             <constraint firstItem="7bu-gg-DBy" firstAttribute="leading" secondItem="5uq-Yb-DsF" secondAttribute="leading" constant="5" id="vcx-Nm-LyB"/>
                         </constraints>
                     </view>
@@ -538,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zQL-Ck-gPJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2439" y="98"/>
+            <point key="canvasLocation" x="2437.68115942029" y="97.767857142857139"/>
         </scene>
     </scenes>
     <resources>

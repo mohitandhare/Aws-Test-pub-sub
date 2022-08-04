@@ -21,4 +21,6 @@ class Child_Lock_CollectionViewCell: UICollectionViewCell {
     var c_nm_value : String!
     
     var master_value : String!
+    
+    var fan_value : String!
 }

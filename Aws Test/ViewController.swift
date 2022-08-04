@@ -358,6 +358,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         child_lock_vc.child_lock_vc_fan_array = child_lock_F_array
         child_lock_vc.child_lock_vc_master_array = child_lock_M_array
         
+        
+        print("MY CHILD MASTER: >>> ",child_lock_M_array)
+        print("MY CHILD FAN : >>> ",child_lock_F_array)
         self.navigationController?.pushViewController(child_lock_vc, animated: true)
         
     }
@@ -848,9 +851,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             let separate_child_light_lock = child_light_lock.map(String.init)
             let separate_child_fan_lock = child_fan_lock.map(String.init)
+            let separate_child_master_lock = child_master_lock.map(String.init)
+            
             
             child_lock_L_array = separate_child_light_lock
             child_lock_F_array = separate_child_fan_lock
+            child_lock_M_array = separate_child_master_lock
             child_lock_M_array.append(child_master_lock)
             
             print("child_lock_L_array : >>",child_lock_L_array)
@@ -863,10 +869,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("Model DIM LEVEL", my_dim_config)
             
             //MARK: ==================
-            fan_speed_number = Int(model.F_speed)!
-            print("fan_speed_number :>>>>",fan_speed_number)
             
-            print("my_fan_speed", my_fan_speed)
+            
+            if model.F_speed == "NA" {
+                
+                
+                
+            }
+            else {
+                
+                fan_speed_number = Int(model.F_speed)!
+                print("fan_speed_number :>>>>",fan_speed_number)
+                
+                print("my_fan_speed", my_fan_speed)
+                
+                fan_speed_number = Int(model.F_speed)!
+                print("fan_speed_number :>>>>",fan_speed_number)
+                
+                print("my_fan_speed", my_fan_speed)
+            }
+            
+            
             
             let separate_l_state = my_l_state.map(String.init)
             

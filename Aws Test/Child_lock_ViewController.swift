@@ -37,23 +37,23 @@ class Child_lock_ViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func publish_child_lock_button(_ sender: UIButton) {
         
-        
+       
         let child_light_string = child_lock_vc_light_array
         let string_child_light_lock = child_light_string.joined(separator: "")
         
         let child_fan_string = child_lock_vc_fan_array
         let string_child_fan_lock = child_fan_string.joined(separator: "")
         
-        let child_master_string = child_lock_vc_master_array
-        let string_master_lock = child_master_string.joined(separator: "")
+        let child_master_string = child_lock_vc_master_array[0]
+//        let string_master_lock = child_master_string.joined(separator: "")
         
         
         print(string_child_light_lock)
         print(string_child_fan_lock)
-        print(string_master_lock)
+        print("MY CHILD ",child_master_string)
         
-        publish_child_lock(L_Lock_Value: string_child_light_lock, F_Lock_Value: string_child_fan_lock, M_Lock_Value: string_master_lock)
-//
+        publish_child_lock(L_Lock_Value: string_child_light_lock, F_Lock_Value: string_child_fan_lock, M_Lock_Value: child_master_string)
+////
 //        self.navigationController?.popViewController(animated: true)
     }
     
@@ -68,6 +68,8 @@ class Child_lock_ViewController: UIViewController, UICollectionViewDelegate, UIC
             "M": M_Lock_Value
             
         ]
+        
+        print("FETCH ALL PARAMS : >>> ",fetch_all_params)
         
         
         
@@ -154,7 +156,9 @@ extension Child_lock_ViewController {
         if cell.c_nm_value == "F" {
             
             print("Fan",child_lock_vc_fan_array)
+            
             cell.fan_value = child_lock_vc_fan_array[0] as? String
+            
             print("FAn Value",cell.fan_value!)
             
             if cell.fan_value == "1" {
@@ -242,7 +246,7 @@ extension Child_lock_ViewController {
             print("Fan",child_lock_vc_fan_array)
             
             cell.fan_value = child_lock_vc_fan_array[0] as? String
-            print("FAn Value",cell.fan_value!)
+            print("Fan Value",cell.fan_value!)
             
             if cell.fan_value == "1" {
             

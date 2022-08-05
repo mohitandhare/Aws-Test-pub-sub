@@ -16,6 +16,7 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var light_image: UIImageView!
     
     
+    @IBOutlet weak var child_lock_image: UIImageView!
     
     
     
@@ -26,5 +27,8 @@ class CollectionViewCell: UICollectionViewCell {
     var control_fan_speed : String!
     
     var dim_level : String!
+    
+    var child_Light_lock_value : String!
+    var child_fan_lock_value : String!
     
 }

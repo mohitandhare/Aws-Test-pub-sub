@@ -12,6 +12,9 @@ import Alamofire
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
  
+    @IBOutlet weak var mqtt_connection_image: UIImageView!
+    
+    
     @IBOutlet weak var blur_effect: UIVisualEffectView!
     //    MARK: ======================= scene_array ===============================
     
@@ -98,6 +101,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var master_array = [Any]()
     
     
+//MARK: FOR SHUFFLE ARRAY
+    
+
+    var shuffle_d_no_array = [Any]()
+
+//MARK: FOR SHUFFLE ARRAY
+    
 //MARK: ===== CHILD LOCK ARRAY'S =====
     
     var child_lock_L_array = [""]
@@ -149,6 +159,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        mqtt_connection_image.layer.cornerRadius = mqtt_connection_image.frame.size.width / 2
+        
         if toggle_value == 0 {
             
             toggle_button_outlet.setOn(false, animated: true)
@@ -163,7 +176,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         dim_button_label_constant.isHidden = true
         
         print("F DIM LEVEL", c_dim_array)
+        
+        
+        
         connetion_aws_function()
+        
+        
+        
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -361,7 +380,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         print("MY CHILD MASTER: >>> ",child_lock_M_array)
         print("MY CHILD FAN : >>> ",child_lock_F_array)
-        self.navigationController?.pushViewController(child_lock_vc, animated: true)
+//        self.navigationController?.pushViewController(child_lock_vc, animated: true)
+        present(child_lock_vc, animated: true)
+    }
+    
+    
+    
+    
+    
+    func Navigate_To_Shuffle_page() {
+        
+        
+        let shuffle_vc : Shuffle_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Shuffle_ViewController") as! Shuffle_ViewController
+        
+        
+        shuffle_vc.shuffle_vc_d_no_array = shuffle_d_no_array
+        
+        present(shuffle_vc, animated: true)
         
     }
     
@@ -390,8 +425,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("Child Lock Selected")
         }
         
+        
+        
+        let shuffle = UIAlertAction(title: "Shuffle Button", style: .default) { action in
+            
+            self.Navigate_To_Shuffle_page()
+            
+        }
+        
         alert.addAction(dim_option)
         alert.addAction(child_lock)
+        alert.addAction(shuffle)
         
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
@@ -402,9 +446,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }///_CLOSED
     
-    
-    
 //MARK: ===== MENU OPTION =====
+    
+    
+//MARK: === SHUFFLE FUNCTIONS ====
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+//MARK: === SHUFFLE FUNCTIONS ====
+
+    
+    
     
 //MARK: === ALL DIM TOGGLE BUTTON FUNCTION ===
     
@@ -800,9 +864,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         initializeDataPlane(credentialsProvider: credentialsProvider)
         
         if (connected == false) {
+            
+            
+            
             handleConnectViaCert()
             
         } else {
+            
+            
+            
             handleDisconnect()
             
         }
@@ -827,7 +897,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let my_l_speed = model.L_speed
             let my_d_no = model.d_no
             let my_master = model.master
+            
             let my_c_nm = model.c_nm
+            
             let my_fan_state = model.F_state
             let my_fan_speed = String(model.F_speed)
            
@@ -845,27 +917,51 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
 //        MARK: ==== CHILD LOCK MODEL TO ARRAY CLOSED =====
             
-            
-            
 //        MARK: ===== SEPARATE CHILD LOCKS =====
             
             let separate_child_light_lock = child_light_lock.map(String.init)
             let separate_child_fan_lock = child_fan_lock.map(String.init)
+            
             let separate_child_master_lock = child_master_lock.map(String.init)
             
             
             child_lock_L_array = separate_child_light_lock
             child_lock_F_array = separate_child_fan_lock
             child_lock_M_array = separate_child_master_lock
+          
+            
+            
             child_lock_M_array.append(child_master_lock)
             
-            print("child_lock_L_array : >>",child_lock_L_array)
-            print("child_lock_F_array : >>",child_lock_F_array)
+            child_lock_L_array.append(contentsOf: separate_child_master_lock)
+            
             print("child_lock_M_array : >>",child_lock_M_array)
             
             
             
-//        MARK: ===== SEPARATE CHILD LOCKS =====
+            
+            
+            print("AFTER APPEND : >> ", child_lock_L_array)
+            print("child_lock_L_array : >>",child_lock_L_array)
+            print("child_lock_F_array : >>",child_lock_F_array)
+            
+            
+            
+            
+//        MARK: ===== SEPARATE CHILD LOCKS ====
+
+            
+//MARK: === SHUFFLE FUNCTIONS ====
+
+            
+            
+            
+            
+            
+            
+            
+            
+//MARK: === SHUFFLE FUNCTIONS ====
             print("Model DIM LEVEL", my_dim_config)
             
             //MARK: ==================
@@ -915,10 +1011,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("C DIM ARRAY ",c_dim_array)
             
             l_speed_array = separate_l_speed
+           
             d_no_array = separate_d_no
+            
             c_nm_array = separate_c_nm
             
+//        MARK: === C_NM_FOR SHUFFLE ===
             
+            shuffle_d_no_array = d_no_array
+            
+            
+//        MARK: === C_NM_FOR SHUFFLE ===
             
             fan_state_array.removeAll()
 //            fan_speed_array.removeAll()
@@ -1470,7 +1573,15 @@ extension ViewController {
              
              cell.label.text = c_nm_array[indexPath.row] as? String
              cell.l_state_value = l_state_array[indexPath.row] as? String
-             
+            
+            cell.child_Light_lock_value = child_lock_L_array[indexPath.row] as? String
+            
+            
+            let fan_value_test = child_lock_F_array[0]
+
+            print("FAN VALUE TEST : >>>",fan_value_test)
+//            cell.child_fan_lock_value = child_lock_F_array[indexPath.row] as? String
+            
              
              cell.collView.layer.cornerRadius = 10
              cell.collView.layer.borderWidth = 2
@@ -1503,6 +1614,8 @@ extension ViewController {
              
              if cell.label.text == "F" {
                  
+                 
+                 
                  cell.dim_blub.image = UIImage(systemName: "")
                  
              }
@@ -1513,7 +1626,28 @@ extension ViewController {
                  
              }
              
-             
+//        MARK: CHILD LOCK FUNCTION
+            
+            if cell.child_Light_lock_value == "1" {
+                
+                cell.child_lock_image.image = UIImage(systemName: "lock.fill")
+                
+            }
+            
+            
+            else {
+                
+                cell.child_lock_image.image = UIImage(named: "")
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+//        MARK: DIM FUNCTION
              
              if cell.l_state_value == "1" {
                  
@@ -1607,6 +1741,10 @@ extension ViewController {
             print("L STATE NUMBER : **** ", L_State_number as Any)
             print("MY DIM LEVEL : >>> ",cell.dim_level as Any)
          
+            
+            
+            
+            
             /// control Light checking
             if cell.control_name == "L" {
                 

@@ -20,6 +20,9 @@
 		30314E8A289008EB00E85C55 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E89289008EB00E85C55 /* Constants.swift */; };
 		30314E8C2890098800E85C55 /* Iot_sample_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */; };
 		303C1FDB28965522001BCC6E /* Dim_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C1FDA28965522001BCC6E /* Dim_CollectionViewCell.swift */; };
+		309417A1289CF93C002163CB /* Shuffle_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309417A0289CF93C002163CB /* Shuffle_ViewController.swift */; };
+		309417A3289CF972002163CB /* Shuffle_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309417A2289CF972002163CB /* Shuffle_CollectionViewCell.swift */; };
+		309417A5289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309417A4289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift */; };
 		30F8090828964780006B07BB /* Dim_Config_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F8090728964780006B07BB /* Dim_Config_ViewController.swift */; };
 		30FD832D289248F200309CF5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FD832C289248F200309CF5 /* CollectionViewCell.swift */; };
 		B05F7E2C06D6A5549CE01A62 /* Pods_Aws_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C080E47AEFA0539720B97CAE /* Pods_Aws_Test.framework */; };
@@ -42,6 +45,9 @@
 		30314E89289008EB00E85C55 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Iot_sample_ViewController.swift; sourceTree = "<group>"; };
 		303C1FDA28965522001BCC6E /* Dim_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dim_CollectionViewCell.swift; sourceTree = "<group>"; };
+		309417A0289CF93C002163CB /* Shuffle_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shuffle_ViewController.swift; sourceTree = "<group>"; };
+		309417A2289CF972002163CB /* Shuffle_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shuffle_CollectionViewCell.swift; sourceTree = "<group>"; };
+		309417A4289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shuffle_Two_CollectionViewCell.swift; sourceTree = "<group>"; };
 		30F8090728964780006B07BB /* Dim_Config_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dim_Config_ViewController.swift; sourceTree = "<group>"; };
 		30FD832C289248F200309CF5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		4B7A943F95C8F4A46784F8DA /* Pods-Aws Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aws Test.release.xcconfig"; path = "Target Support Files/Pods-Aws Test/Pods-Aws Test.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,13 +103,16 @@
 				30314E89289008EB00E85C55 /* Constants.swift */,
 				30314E8B2890098800E85C55 /* Iot_sample_ViewController.swift */,
 				30314E74289007AA00E85C55 /* ViewController.swift */,
+				30FD832C289248F200309CF5 /* CollectionViewCell.swift */,
 				30314E76289007AA00E85C55 /* Main.storyboard */,
+				309417A0289CF93C002163CB /* Shuffle_ViewController.swift */,
+				309417A2289CF972002163CB /* Shuffle_CollectionViewCell.swift */,
+				309417A4289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift */,
 				301ABDB3289A7E64009E938C /* Child_lock_ViewController.swift */,
 				301ABDB5289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift */,
 				301696E32898FADD00DD8AA8 /* Scene_CollectionViewCell.swift */,
 				30F8090728964780006B07BB /* Dim_Config_ViewController.swift */,
 				303C1FDA28965522001BCC6E /* Dim_CollectionViewCell.swift */,
-				30FD832C289248F200309CF5 /* CollectionViewCell.swift */,
 				30314E79289007AE00E85C55 /* Assets.xcassets */,
 				30314E7B289007AE00E85C55 /* LaunchScreen.storyboard */,
 				30314E7E289007AE00E85C55 /* Info.plist */,
@@ -243,9 +252,12 @@
 				301ABDB4289A7E64009E938C /* Child_lock_ViewController.swift in Sources */,
 				301696E42898FADD00DD8AA8 /* Scene_CollectionViewCell.swift in Sources */,
 				30314E73289007AA00E85C55 /* SceneDelegate.swift in Sources */,
+				309417A3289CF972002163CB /* Shuffle_CollectionViewCell.swift in Sources */,
 				30F8090828964780006B07BB /* Dim_Config_ViewController.swift in Sources */,
 				301ABDB6289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift in Sources */,
 				30314E8A289008EB00E85C55 /* Constants.swift in Sources */,
+				309417A5289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift in Sources */,
+				309417A1289CF93C002163CB /* Shuffle_ViewController.swift in Sources */,
 				303C1FDB28965522001BCC6E /* Dim_CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

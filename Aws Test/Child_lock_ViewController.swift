@@ -53,8 +53,10 @@ class Child_lock_ViewController: UIViewController, UICollectionViewDelegate, UIC
         print("MY CHILD ",child_master_string)
         
         publish_child_lock(L_Lock_Value: string_child_light_lock, F_Lock_Value: string_child_fan_lock, M_Lock_Value: child_master_string)
-////
-//        self.navigationController?.popViewController(animated: true)
+
+        navigationController?.popViewController(animated: true)
+
+        dismiss(animated: true, completion: nil)
     }
     
     

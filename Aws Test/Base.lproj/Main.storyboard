@@ -650,6 +650,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="OdY-df-8Qg" id="NOS-0f-SVM"/>
+                                    <outlet property="delegate" destination="OdY-df-8Qg" id="eBf-l4-hCT"/>
+                                </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pm4-ek-gDY">
                                 <rect key="frame" x="5" y="404" width="404" height="308"/>
@@ -702,6 +706,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="OdY-df-8Qg" id="2t2-uS-SEa"/>
+                                    <outlet property="delegate" destination="OdY-df-8Qg" id="mP7-6z-5vG"/>
+                                </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idk-Eq-3AI">
                                 <rect key="frame" x="100" y="762" width="214" height="50"/>

@@ -105,7 +105,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 
     var shuffle_d_no_array = [Any]()
-
+    var shuffle_c_nm_array = [Any]()
+    var shuffle_l_state_array = [Any]()
 //MARK: FOR SHUFFLE ARRAY
     
 //MARK: ===== CHILD LOCK ARRAY'S =====
@@ -395,6 +396,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
         shuffle_vc.shuffle_vc_d_no_array = shuffle_d_no_array
+        shuffle_vc.shuffle_vc_c_nm_array = shuffle_c_nm_array
+        
         
         present(shuffle_vc, animated: true)
         
@@ -1004,7 +1007,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("my_fan_speed_in_array", fan_speed_array)
             
             
+            
+            
             l_state_array = separate_l_state
+            
+//        MARK: FOR SHUFFLE
+
+            shuffle_l_state_array = l_state_array
+            
+//        MARK: FOR SHUFFLE
             
             c_dim_array = separate_dim_config
             
@@ -1017,8 +1028,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             c_nm_array = separate_c_nm
             
 //        MARK: === C_NM_FOR SHUFFLE ===
-            
+//            MARK: WORK GOING ON
             shuffle_d_no_array = d_no_array
+            shuffle_c_nm_array = c_nm_array
             
             
 //        MARK: === C_NM_FOR SHUFFLE ===
@@ -1574,12 +1586,7 @@ extension ViewController {
              cell.label.text = c_nm_array[indexPath.row] as? String
              cell.l_state_value = l_state_array[indexPath.row] as? String
             
-            cell.child_Light_lock_value = child_lock_L_array[indexPath.row] as? String
             
-            
-            let fan_value_test = child_lock_F_array[0]
-
-            print("FAN VALUE TEST : >>>",fan_value_test)
 //            cell.child_fan_lock_value = child_lock_F_array[indexPath.row] as? String
             
              
@@ -1614,7 +1621,12 @@ extension ViewController {
              
              if cell.label.text == "F" {
                  
+                 cell.child_Light_lock_value = child_lock_L_array[indexPath.row] as? String
                  
+                 
+                 let fan_value_test = child_lock_F_array[0]
+
+                 print("FAN VALUE TEST : >>>",fan_value_test)
                  
                  cell.dim_blub.image = UIImage(systemName: "")
                  
@@ -1728,24 +1740,15 @@ extension ViewController {
             cell.l_state_value = l_state_array[index_Path!.row] as? String
             cell.control_name = c_nm_array[indexPath.row] as? String
            
-            
-            
-            
-            
-            
-            
-            
             let number = Int(cell.test_two)
             let L_State_number = Int(cell.l_state_value)
             
             print("L STATE NUMBER : **** ", L_State_number as Any)
             print("MY DIM LEVEL : >>> ",cell.dim_level as Any)
          
-            
-            
-            
-            
             /// control Light checking
+            
+            
             if cell.control_name == "L" {
                 
                 if L_State_number == 1 {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300505ED289F8E5300D185D4 /* Schudule_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300505EC289F8E5300D185D4 /* Schudule_CollectionViewCell.swift */; };
+		300505EF289F8ED200D185D4 /* Schedule_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300505EE289F8ED200D185D4 /* Schedule_ViewController.swift */; };
+		300505F1289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300505F0289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift */; };
+		300505F3289FBBFD00D185D4 /* Days_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300505F2289FBBFD00D185D4 /* Days_CollectionViewCell.swift */; };
 		301696E42898FADD00DD8AA8 /* Scene_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301696E32898FADD00DD8AA8 /* Scene_CollectionViewCell.swift */; };
 		301ABDB4289A7E64009E938C /* Child_lock_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301ABDB3289A7E64009E938C /* Child_lock_ViewController.swift */; };
 		301ABDB6289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301ABDB5289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift */; };
@@ -29,6 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300505EC289F8E5300D185D4 /* Schudule_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schudule_CollectionViewCell.swift; sourceTree = "<group>"; };
+		300505EE289F8ED200D185D4 /* Schedule_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule_ViewController.swift; sourceTree = "<group>"; };
+		300505F0289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule_button_CollectionViewCell.swift; sourceTree = "<group>"; };
+		300505F2289FBBFD00D185D4 /* Days_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Days_CollectionViewCell.swift; sourceTree = "<group>"; };
 		301696E32898FADD00DD8AA8 /* Scene_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene_CollectionViewCell.swift; sourceTree = "<group>"; };
 		301ABDB3289A7E64009E938C /* Child_lock_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child_lock_ViewController.swift; sourceTree = "<group>"; };
 		301ABDB5289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child_Lock_CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +113,10 @@
 				30314E74289007AA00E85C55 /* ViewController.swift */,
 				30FD832C289248F200309CF5 /* CollectionViewCell.swift */,
 				30314E76289007AA00E85C55 /* Main.storyboard */,
+				300505EE289F8ED200D185D4 /* Schedule_ViewController.swift */,
+				300505EC289F8E5300D185D4 /* Schudule_CollectionViewCell.swift */,
+				300505F0289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift */,
+				300505F2289FBBFD00D185D4 /* Days_CollectionViewCell.swift */,
 				309417A0289CF93C002163CB /* Shuffle_ViewController.swift */,
 				309417A2289CF972002163CB /* Shuffle_CollectionViewCell.swift */,
 				309417A4289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift */,
@@ -248,6 +260,7 @@
 				30314E75289007AA00E85C55 /* ViewController.swift in Sources */,
 				30314E8C2890098800E85C55 /* Iot_sample_ViewController.swift in Sources */,
 				30FD832D289248F200309CF5 /* CollectionViewCell.swift in Sources */,
+				300505EF289F8ED200D185D4 /* Schedule_ViewController.swift in Sources */,
 				30314E71289007AA00E85C55 /* AppDelegate.swift in Sources */,
 				301ABDB4289A7E64009E938C /* Child_lock_ViewController.swift in Sources */,
 				301696E42898FADD00DD8AA8 /* Scene_CollectionViewCell.swift in Sources */,
@@ -256,9 +269,12 @@
 				30F8090828964780006B07BB /* Dim_Config_ViewController.swift in Sources */,
 				301ABDB6289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift in Sources */,
 				30314E8A289008EB00E85C55 /* Constants.swift in Sources */,
+				300505F1289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift in Sources */,
 				309417A5289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift in Sources */,
+				300505ED289F8E5300D185D4 /* Schudule_CollectionViewCell.swift in Sources */,
 				309417A1289CF93C002163CB /* Shuffle_ViewController.swift in Sources */,
 				303C1FDB28965522001BCC6E /* Dim_CollectionViewCell.swift in Sources */,
+				300505F3289FBBFD00D185D4 /* Days_CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

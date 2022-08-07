@@ -90,15 +90,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     ///_    ================
     
     //MARK: ================ DONE TRANSFER ================
-    var l_state_array = [Any]()
+    var l_state_array = [String]()
     var l_speed_array = [String]()
     var d_no_array = [Any]()
     var c_nm_array = [Any]()
     var final_array = [Any]()
-    var fan_state_array = [Any]()
+    var fan_state_array = [String]()
     var fan_speed_array = [String]()
     var fan_speed_number : Int = 0
-    var master_array = [Any]()
+    var master_array = [String]()
+    
+    var schedule_FWD_l_state_array = [String]()
+    var schedule_FWD_fan_array = [String]()
+    var schedule_FWD_combine_l_state_and_fan_array = [Any]()
+    
     
     
 //MARK: FOR SHUFFLE ARRAY
@@ -386,9 +391,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-    
-    
-    
     func Navigate_To_Shuffle_page() {
         
         
@@ -401,6 +403,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         present(shuffle_vc, animated: true)
         
+    }
+    
+    
+    func Navigate_To_Schedule_page() {
+        
+        
+        let schedule_vc : Schedule_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Schedule_ViewController") as! Schedule_ViewController
+        
+        schedule_vc.schedule_vc_l_state_array = schedule_FWD_l_state_array
+        
+        schedule_vc.schedule_vc_fan_state_array = schedule_FWD_fan_array
+        
+        schedule_vc.schedule_vc_combine_array = schedule_FWD_combine_l_state_and_fan_array
+        
+        
+        schedule_vc.schedule_vc_c_nm_array = c_nm_array
+        
+        present(schedule_vc, animated: true)
     }
     
     
@@ -421,7 +441,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         
-        let child_lock = UIAlertAction(title: "Child Lock", style: .default) { action in
+        let child_lock = UIAlertAction(title: "Child Lock Configure", style: .default) { action in
             
             self.Navigate_To_Child_Lock_page()
             
@@ -430,15 +450,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
         
-        let shuffle = UIAlertAction(title: "Shuffle Button", style: .default) { action in
+        let shuffle = UIAlertAction(title: "Shuffle Configure", style: .default) { action in
             
             self.Navigate_To_Shuffle_page()
             
         }
         
+        
+        
+        let schedule = UIAlertAction(title: "Schedule Configure", style: .default) { action in
+            self.Navigate_To_Schedule_page()
+        }
+        
         alert.addAction(dim_option)
         alert.addAction(child_lock)
         alert.addAction(shuffle)
+        alert.addAction(schedule)
+        
         
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
@@ -908,6 +936,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
            
             let my_dim_config = model.c_dim
             
+            
+            
+            
+            
+            
+//        MARK: ==== SCHEDULE MODEL TO ARRAY ====
+            
+            
+            let separate_for_schedule_l_state = my_l_state.map(String.init)
+            let separate_for_schedule_fan_state = my_fan_state.map(String.init)
+            
+            
+            schedule_FWD_l_state_array = separate_for_schedule_l_state
+            schedule_FWD_fan_array = separate_for_schedule_fan_state
+            
+            print("schedule_FWD_l_state_array", schedule_FWD_l_state_array)
+            print("schedule_FWD_fan_array", schedule_FWD_fan_array)
+            
+            schedule_FWD_combine_l_state_and_fan_array = separate_for_schedule_l_state
+            schedule_FWD_combine_l_state_and_fan_array.append(my_fan_state)
+            
+            print("schedule_FWD_combine_l_state_and_fan_array :>>>>>>>>>>>>",schedule_FWD_combine_l_state_and_fan_array)
+            
+//        MARK: ==== SCHEDULE MODEL TO ARRAY ====
             
             
 //        MARK: ==== CHILD LOCK MODEL TO ARRAY =====
@@ -1754,8 +1806,7 @@ extension ViewController {
                 if L_State_number == 1 {
 
                     publish_button(control: "L", no: number!, state: 0, speed: 0)
-                    
-                    
+               
                 }
                 else {
 
@@ -1764,9 +1815,7 @@ extension ViewController {
                 }
             }
             
-            
-            
-            if cell.control_name == "F" {
+             if cell.control_name == "F" {
                 
                 if L_State_number == 1 {
 
@@ -1794,9 +1843,6 @@ extension ViewController {
                  }
             }
             
-            
-            
-            
             /// control name checking
             
            if cell.control_name == "M" {
@@ -1807,9 +1853,7 @@ extension ViewController {
                     
                     publish_button(control: "M", no: number!, state: 0, speed: 0)
                     
-                    
-                    
-                    if L_State_number == 1 {
+                   if L_State_number == 1 {
                         
                         slider_one.isEnabled = true
                         
@@ -1829,11 +1873,8 @@ extension ViewController {
                             self.slider_one.thumbTintColor = UIColor.gray
                             self.slider_one.minimumTrackTintColor = UIColor.gray
                             self.slider_one.maximumTrackTintColor = UIColor.gray
-                            
                         }
-                        
                     }
-                    
                 }
                 
                 else {
@@ -1849,29 +1890,16 @@ extension ViewController {
                         self.slider_one.minimumTrackTintColor = UIColor.gray
                         self.slider_one.maximumTrackTintColor = UIColor.gray
                         
-
-                    }
-                    
                 }
-                
             }
-            
-            
-            
         }
+    }
         
         
         else {
             
-            
                 tap(control_no: indexPath.row + 1)
-            
-            
-            
         }
-            
-       
-        
      }
     
 }

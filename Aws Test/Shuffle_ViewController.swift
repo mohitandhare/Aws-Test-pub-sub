@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import AWSCore
+import AWSIoT
+import Alamofire
 
 class Shuffle_ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -22,6 +25,10 @@ class Shuffle_ViewController: UIViewController, UICollectionViewDelegate, UIColl
     var replace_from : Int!
     var value_replace_to : String!
     
+    var result = [Any]()
+    var duplicateArr = [""]
+
+    var shuffle_publish_array : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +51,103 @@ class Shuffle_ViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func save_button(_ sender: UIButton) {
         
+
+        for i in 0..<shuffle_vc_d_no_array.count {
+            var isDuplicate = false
+            if duplicateArr.count == 0 {
+            
+                duplicateArr.append(shuffle_vc_d_no_array[i] as! String)
+            }else{
+                print(shuffle_vc_d_no_array[i])
+                 for j in 0..<duplicateArr.count{
+                     if duplicateArr[j] as! String == shuffle_vc_d_no_array[i] as! String{
+                         isDuplicate = true
+                     }
+                 }
+                if isDuplicate {
+                   
+                    result.append(shuffle_vc_d_no_array[i] as! String)
+                    
+                    self.alert_for_duplicate_value()
+                    
+                    
+                }else{
+                    
+                    
+                    duplicateArr.append(shuffle_vc_d_no_array[i] as! String)
+                    
+                    shuffle_publish_array = duplicateArr.joined(separator: "")
+                    
+                    print("My Duplicate :>>",shuffle_publish_array!)
+                    
+                    publish_shuffle_config()
+
+                    
+                    navigationController?.popViewController(animated: true)
+
+                    dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        print("Duplicate list -> \(result)")
         
         
         
     }
+    
+    
+    func alert_for_duplicate_value() {
+        
+        let alert = UIAlertController(title: "Shuffle of button has not finish", message: "Please shuffle it properly..", preferredStyle: .alert)
+        
+        
+        
+        let when = DispatchTime.now() + 3.0
+        
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            alert.dismiss(animated: true, completion: nil)
+            
+        }
+
+        self.present(alert, animated: true)
+        
+     }
+    
+    
+    
+    func publish_shuffle_config() {
+        
+        
+        let shuffle_params : Parameters = [
+        
+        
+            "control":"config_shuffle",
+            "dest": shuffle_publish_array
+        
+        ]
+        
+        
+        if let theJSONData = try? JSONSerialization.data(withJSONObject: shuffle_params,options: []) {
+            
+            let theJSONText = String(data: theJSONData,
+                                     encoding: .ascii)
+            print("JSON string = \(theJSONText!)")
+            
+            
+            let iotDataManager = AWSIoTDataManager(forKey: AWS_IOT_DATA_MANAGER_KEY)
+            
+            let iot_sample_vc = Iot_sample_ViewController()
+            
+            iotDataManager.publishString(theJSONText!, onTopic:iot_sample_vc.topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
+            
+            
+        }
+
+        
+        
+    }
+    
     
 }
     
@@ -151,9 +251,8 @@ class Shuffle_ViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
                 shuffle_collection_view.reloadData()
                 
-                
-                
-            }
+             }
+            
             
             
             

@@ -45,6 +45,7 @@ class Dim_Config_ViewController: UIViewController, UICollectionViewDelegate, UIC
         print("Config_dim",dim_array)
 
         let stringArray = dim_array
+       
         let string_dim = stringArray.joined(separator: "")
 
         print(string_dim)

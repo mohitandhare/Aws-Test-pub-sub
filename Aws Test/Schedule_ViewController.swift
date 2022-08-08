@@ -62,7 +62,12 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
                       "Fri",
                       "Sat",
                       "Sun",]
+    
+    
     var Days_selected = ["0","0","0","0","0","0","0"]
+    
+    
+    
     
     var publish_days_selected = [""]
     var publish_l_state = [""]
@@ -71,7 +76,7 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     
     
     var schedule_vc_l_state_array = [String]()
-   
+    
     var schedule_vc_fan_state_array = [String]()
     
     var schedule_vc_combine_array = [Any]()
@@ -83,6 +88,10 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        print("schedule_vc_l_state_array : <<<NOW>>> " , schedule_vc_l_state_array)
+        
+//        day_collectionView.isHidden = true
         
         StartHours_Value = 0
         StartMinutes_Value = 0
@@ -96,8 +105,22 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
         
         StartTime_Tool_Bar.items = [firstStartTime_Tool_Bar_Done_Btn]
+        
+        timePicker.frame = CGRect(x: 0.0, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 200)
+        
+        timePicker.backgroundColor = UIColor.gray
+        firstStartTime_Tool_Bar_Done_Btn.tintColor = UIColor.black
+        StartTime_Tool_Bar.tintColor = UIColor.lightGray
+        
+        
+        
         time_select.inputAccessoryView = StartTime_Tool_Bar
+        time_select.tintColor = UIColor.white
         time_select.inputView = timePicker
+        
+        
+        
+        
         
         
         print("L STATE ",schedule_vc_l_state_array)
@@ -118,9 +141,6 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
     }
     
-    
-    
-    
     @IBAction func weekly_box_button(_ sender: UIButton) {
         
         if schedule_type_flag == false {
@@ -128,7 +148,11 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             weekly_box_outlet.setImage(UIImage(named: "check"), for: UIControl.State.normal)
             schedule_type_flag = true
             schedule_type_string = "W"
+            Days_selected = ["1","1","1","1","1","1","1"]
+            day_collectionView.isHidden = false
             
+            daily_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            perticular_day_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
         }
         
         else {
@@ -137,9 +161,6 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             schedule_type_flag = false
             
         }
-        
-        
-        
         
     }
     
@@ -152,6 +173,12 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             schedule_type_flag = true
             schedule_type_string = "D"
             
+            Days_selected = ["1","1","1","1","1","1","1"]
+            
+            weekly_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            perticular_day_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            
+            day_collectionView.isHidden = true
             
         }
         
@@ -173,6 +200,12 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             perticular_day_box_outlet.setImage(UIImage(named: "check"), for: UIControl.State.normal)
             schedule_type_flag = true
             schedule_type_string = "P"
+            
+            daily_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            weekly_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
+            
+            day_collectionView.isHidden = true
+            
         }
         
         else {
@@ -198,8 +231,7 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         StartMinutes_Value = calender.component(.minute, from: timePicker.date)
         
         print("HOURS =====", StartHours_Value!)
-        print("Minutes", StartMinutes_Value!)
-        
+        print("Minutes =====", StartMinutes_Value!)
         
     }
     
@@ -232,10 +264,10 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             
         }
         
-       else if StartHours_Value < 10 {
-        
+        else if StartHours_Value < 10 {
+            
             final_time = "0" + String(StartHours_Value) + ":" + String(StartMinutes_Value) + ":" + "00"
-           print("final_time", final_time!)
+            print("final_time", final_time!)
         }
         
         else if StartMinutes_Value < 10 {
@@ -244,16 +276,16 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             print("final_time", final_time!)
             
         }
-
+        
         
         else {
-        
+            
             final_time = String(StartHours_Value) + ":" + String(StartMinutes_Value) + ":" + "00"
             print("final_time", final_time!)
         }
-
+        
         publish_shuffle_config(no: schedule_selected_value, sch_type: schedule_type_string, week_schedule: join_selected_days, time: final_time, L_state: join_l_state, fan_state: join_fan_state)
-
+        
         
     }
     
@@ -264,17 +296,17 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
         let shuffle_params : Parameters = [
             
-                "control":"scheduler_config",
-                "no": no,
-                "date":"00/00/00",
-                "sch_type": sch_type,
-                "week_schedule": week_schedule,
-                "time": time,
-                "L_state": L_state,
-                "L_speed":"666666",
-                "F_state": fan_state,
-                "F_speed":"4",
-                "m_state":0
+            "control":"scheduler_config",
+            "no": no,
+            "date":"00/00/00",
+            "sch_type": sch_type,
+            "week_schedule": week_schedule,
+            "time": time,
+            "L_state": L_state,
+            "L_speed":"666666",
+            "F_state": fan_state,
+            "F_speed":"4",
+            "m_state":0
             
         ]
         
@@ -298,187 +330,203 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
     }
 }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        extension Schedule_ViewController {
-            
-            
-            func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-                
-                if collectionView == Schedule_CollectionView {
-                    
-                    return Schedule_array.count
-                    
-                }
-                
-                else if collectionView == schedule_button_collectionView {
-                    
-                    return schedule_vc_combine_array.count
-                    
-                }
-                
-                else {
-                    
-                    
-                    return Days_Array.count
-                }
-                
-                
-            }
-            
-            func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-                
-                
-                if collectionView == Schedule_CollectionView {
-                    
-                    
-                    
-                    let schedule_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Schedule_Cell", for: indexPath) as! Schudule_CollectionViewCell
-                    
-                    
-                    schedule_cell.Schedule_View.layer.cornerRadius = 10
-                    schedule_cell.Schedule_View.layer.borderColor = UIColor.black.cgColor
-                    schedule_cell.Schedule_View.layer.borderWidth = 2
-                    
-                    schedule_cell.Schedule_Label.text = Schedule_array[indexPath.row]
-                    
-                    return schedule_cell
-                    
-                }
-                
-                else if collectionView == schedule_button_collectionView {
-                    
-                    let schedule_button_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "schedule_button_cell", for: indexPath) as! Schedule_button_CollectionViewCell
-                    
-                    
-                    schedule_button_cell.schedule_button_view.layer.cornerRadius = 10
-                    schedule_button_cell.schedule_button_view.layer.borderColor = UIColor.black.cgColor
-                    schedule_button_cell.schedule_button_view.layer.borderWidth = 2
-                    
-                    schedule_button_cell.schedule_button_label.text = schedule_vc_c_nm_array[indexPath.row] as! String
-                    
-                    
-                    return schedule_button_cell
-                    
-                }
-                
-                else {
-                    
-                    let days_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "days_cell", for: indexPath) as! Days_CollectionViewCell
-                    
-                    
-                    days_cell.days_view.layer.cornerRadius = 10
-                    days_cell.days_view.layer.borderColor = UIColor.black.cgColor
-                    days_cell.days_view.layer.borderWidth = 2
-                    
-                    days_cell.days_label.text = Days_Array[indexPath.row]
-                    
-                    
-                    return days_cell
-                    
-                    
-                }
-                
-                return UICollectionViewCell()
-            }
-            
-            func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                
-                if collectionView == Schedule_CollectionView {
-                    
-                    
-                    var select_val_time : Int!
-                    select_val_time = indexPath.row + 1
-                    
-                    schedule_selected_value = select_val_time
-                    
-                    print(schedule_selected_value!)
-                    
-                    
-                }
-                
-                else if collectionView == schedule_button_collectionView {
-                    
-                    var c_name = schedule_vc_c_nm_array[indexPath.row]
-                    var l_state = schedule_vc_combine_array[indexPath.row]
-                    
-                    
-                    //            var Sp_light = schedule_vc_l_state_array[indexPath.row]
-                    //            var Sp_fan = schedule_vc_fan_state_array[indexPath.row]
-                    
-                    
-                    if c_name as! String == "L" {
-                        
-                        if l_state as! String == "1" {
-                            
-                            schedule_vc_combine_array[indexPath.row] = "0"
-                            schedule_vc_l_state_array[indexPath.row] = "0"
-                            
-                        }
-                        
-                        else {
-                            
-                            schedule_vc_combine_array[indexPath.row] = "1"
-                            schedule_vc_l_state_array[indexPath.row] = "1"
-                        }
-                        
-                    }
-                    
-                    if c_name as! String == "F" {
-                        
-                        if l_state as! String == "1" {
-                            
-                            schedule_vc_combine_array[indexPath.row] = "0"
-                            schedule_vc_fan_state_array[0] = "0"
-                            
-                        }
-                        
-                        else {
-                            
-                            schedule_vc_combine_array[indexPath.row] = "1"
-                            schedule_vc_fan_state_array[0] = "1"
-                        }
-                        
-                        
-                    }
-                    
-                    print("MY COMBINE STATE : >>> ",schedule_vc_combine_array)
-                    print("schedule_vc_l_state_array : >>>", schedule_vc_l_state_array)
-                    print("schedule_vc_Fan_state_array : >>>", schedule_vc_fan_state_array)
-                }
-                
-                
-                else {
-                    
-                    
-                    selected_days = Days_selected[indexPath.row]
-                    
-                    
-                    if selected_days == "1" {
-                        
-                        Days_selected[indexPath.row] = "0"
-                        
-                    }
-                    
-                    else if selected_days == "0" {
-                        
-                        Days_selected[indexPath.row] = "1"
-                        
-                        
-                    }
 
-                    print("Now selected_days : >>>> ",Days_selected)
+extension Schedule_ViewController {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if collectionView == Schedule_CollectionView {
+            
+            return Schedule_array.count
+            
+        }
+        
+        else if collectionView == schedule_button_collectionView {
+            
+            return schedule_vc_combine_array.count
+            
+        }
+        
+        else {
+            
+            
+            return Days_Array.count
+        }
+        
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        if collectionView == Schedule_CollectionView {
+            
+            
+            
+            let schedule_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Schedule_Cell", for: indexPath) as! Schudule_CollectionViewCell
+            
+            
+            schedule_cell.Schedule_View.layer.cornerRadius = 10
+            schedule_cell.Schedule_View.layer.borderColor = UIColor.black.cgColor
+            schedule_cell.Schedule_View.layer.borderWidth = 2
+            
+            schedule_cell.Schedule_Label.text = Schedule_array[indexPath.row]
+            
+            
+            
+            return schedule_cell
+            
+        }
+        
+        else if collectionView == schedule_button_collectionView {
+            
+            let schedule_button_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "schedule_button_cell", for: indexPath) as! Schedule_button_CollectionViewCell
+            
+            
+            schedule_button_cell.schedule_button_view.layer.cornerRadius = 10
+            schedule_button_cell.schedule_button_view.layer.borderColor = UIColor.black.cgColor
+            schedule_button_cell.schedule_button_view.layer.borderWidth = 2
+            
+            schedule_button_cell.schedule_button_label.text = schedule_vc_c_nm_array[indexPath.row] as! String
+            
+            let c_nm_value = schedule_button_cell.schedule_button_label.text
+
+            
+            print("c_nm_value <<<NOW>>>", c_nm_value)
+            
+            
+            if c_nm_value == "L" {
+            
+                schedule_button_cell.light_value = schedule_vc_l_state_array[indexPath.row]
+                
+                print("schedule_button_cell.light_value <NOW>", schedule_button_cell.light_value)
+                
+                if schedule_button_cell.light_value == "1" {
                     
+                    schedule_button_cell.schedule_button_image.image = UIImage(systemName: "lightbulb.fill")
+                }
+                
+                else {
+                    
+                    schedule_button_cell.schedule_button_image.image = UIImage(systemName: "lightbulb")
+                    
+                }
+            
+            }
+//
+            
+            
+            return schedule_button_cell
+            
+        }
+        
+        else {
+            
+            let days_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "days_cell", for: indexPath) as! Days_CollectionViewCell
+            
+            
+            days_cell.days_view.layer.cornerRadius = 10
+            days_cell.days_view.layer.borderColor = UIColor.black.cgColor
+            days_cell.days_view.layer.borderWidth = 2
+            
+            days_cell.days_label.text = Days_Array[indexPath.row]
+            
+            
+            return days_cell
+            
+            
+        }
+        
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == Schedule_CollectionView {
+            
+            
+            var select_val_time : Int!
+            select_val_time = indexPath.row + 1
+            
+            schedule_selected_value = select_val_time
+            
+            print(schedule_selected_value!)
+            
+            
+        }
+        
+        else if collectionView == schedule_button_collectionView {
+            
+            let schedule_button_cell = collectionView.dequeueReusableCell(withReuseIdentifier: "schedule_button_cell", for: indexPath) as! Schedule_button_CollectionViewCell
+            
+            var c_name = schedule_vc_c_nm_array[indexPath.row]
+            var l_state = schedule_vc_combine_array[indexPath.row]
+      
+            if c_name as! String == "L" {
+                
+                if l_state as! String == "1" {
+                    
+                    schedule_vc_combine_array[indexPath.row] = "0"
+                    schedule_vc_l_state_array[indexPath.row] = "0"
+                    
+                }
+                
+                else {
+                    
+                    schedule_vc_combine_array[indexPath.row] = "1"
+                    schedule_vc_l_state_array[indexPath.row] = "1"
+                    schedule_button_cell.schedule_button_image.image = UIImage(systemName: "lightbulb.fill")
+                }
+                
+            }
+            
+            if c_name as! String == "F" {
+                
+                if l_state as! String == "1" {
+                    
+                    schedule_vc_combine_array[indexPath.row] = "0"
+                    schedule_vc_fan_state_array[0] = "0"
+                    
+                }
+                
+                else {
+                    
+                    schedule_vc_combine_array[indexPath.row] = "1"
+                    schedule_vc_fan_state_array[0] = "1"
                 }
                 
                 
             }
+            
+            print("MY COMBINE STATE : >>> ",schedule_vc_combine_array)
+            print("schedule_vc_l_state_array : >>>", schedule_vc_l_state_array)
+            print("schedule_vc_Fan_state_array : >>>", schedule_vc_fan_state_array)
         }
+        
+        
+        else {
+            
+            
+            selected_days = Days_selected[indexPath.row]
+            
+            
+            if selected_days == "1" {
+                
+                Days_selected[indexPath.row] = "0"
+                
+            }
+            
+            else if selected_days == "0" {
+                
+                Days_selected[indexPath.row] = "1"
+                
+            }
+            
+            print("Now selected_days : >>>> ",Days_selected)
+            
+        }
+        
+        
+    }
+}

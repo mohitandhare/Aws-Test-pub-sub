@@ -13,4 +13,7 @@ class Schedule_button_CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var schedule_button_label: UILabel!
     
+    @IBOutlet weak var schedule_button_image: UIImageView!
+    
+    var light_value : String!
 }

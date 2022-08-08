@@ -14,6 +14,9 @@
 		301696E42898FADD00DD8AA8 /* Scene_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301696E32898FADD00DD8AA8 /* Scene_CollectionViewCell.swift */; };
 		301ABDB4289A7E64009E938C /* Child_lock_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301ABDB3289A7E64009E938C /* Child_lock_ViewController.swift */; };
 		301ABDB6289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301ABDB5289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift */; };
+		301B988D28A1169000EE091A /* Replica_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B988C28A1169000EE091A /* Replica_ViewController.swift */; };
+		301B988F28A128FC00EE091A /* Mood_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B988E28A128FC00EE091A /* Mood_ViewController.swift */; };
+		301B989128A1298200EE091A /* Mood_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B989028A1298200EE091A /* Mood_CollectionViewCell.swift */; };
 		30314E71289007AA00E85C55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E70289007AA00E85C55 /* AppDelegate.swift */; };
 		30314E73289007AA00E85C55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E72289007AA00E85C55 /* SceneDelegate.swift */; };
 		30314E75289007AA00E85C55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30314E74289007AA00E85C55 /* ViewController.swift */; };
@@ -40,6 +43,9 @@
 		301696E32898FADD00DD8AA8 /* Scene_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene_CollectionViewCell.swift; sourceTree = "<group>"; };
 		301ABDB3289A7E64009E938C /* Child_lock_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child_lock_ViewController.swift; sourceTree = "<group>"; };
 		301ABDB5289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child_Lock_CollectionViewCell.swift; sourceTree = "<group>"; };
+		301B988C28A1169000EE091A /* Replica_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replica_ViewController.swift; sourceTree = "<group>"; };
+		301B988E28A128FC00EE091A /* Mood_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood_ViewController.swift; sourceTree = "<group>"; };
+		301B989028A1298200EE091A /* Mood_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood_CollectionViewCell.swift; sourceTree = "<group>"; };
 		30314E6D289007AA00E85C55 /* Aws Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aws Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30314E70289007AA00E85C55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30314E72289007AA00E85C55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +119,9 @@
 				30314E74289007AA00E85C55 /* ViewController.swift */,
 				30FD832C289248F200309CF5 /* CollectionViewCell.swift */,
 				30314E76289007AA00E85C55 /* Main.storyboard */,
+				301B988E28A128FC00EE091A /* Mood_ViewController.swift */,
+				301B989028A1298200EE091A /* Mood_CollectionViewCell.swift */,
+				301B988C28A1169000EE091A /* Replica_ViewController.swift */,
 				300505EE289F8ED200D185D4 /* Schedule_ViewController.swift */,
 				300505EC289F8E5300D185D4 /* Schudule_CollectionViewCell.swift */,
 				300505F0289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift */,
@@ -258,6 +267,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				30314E75289007AA00E85C55 /* ViewController.swift in Sources */,
+				301B988F28A128FC00EE091A /* Mood_ViewController.swift in Sources */,
+				301B988D28A1169000EE091A /* Replica_ViewController.swift in Sources */,
 				30314E8C2890098800E85C55 /* Iot_sample_ViewController.swift in Sources */,
 				30FD832D289248F200309CF5 /* CollectionViewCell.swift in Sources */,
 				300505EF289F8ED200D185D4 /* Schedule_ViewController.swift in Sources */,
@@ -270,6 +281,7 @@
 				301ABDB6289A7FA8009E938C /* Child_Lock_CollectionViewCell.swift in Sources */,
 				30314E8A289008EB00E85C55 /* Constants.swift in Sources */,
 				300505F1289F951E00D185D4 /* Schedule_button_CollectionViewCell.swift in Sources */,
+				301B989128A1298200EE091A /* Mood_CollectionViewCell.swift in Sources */,
 				309417A5289CFC75002163CB /* Shuffle_Two_CollectionViewCell.swift in Sources */,
 				300505ED289F8E5300D185D4 /* Schudule_CollectionViewCell.swift in Sources */,
 				309417A1289CF93C002163CB /* Shuffle_ViewController.swift in Sources */,

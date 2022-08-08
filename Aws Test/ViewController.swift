@@ -425,6 +425,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     
+    func Navigate_To_Replica_Page() {
+        
+        let replica_vc : Replica_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Replica_ViewController") as! Replica_ViewController
+        
+        
+        present(replica_vc, animated: true)
+        
+        
+        
+    }
+    
+    
+    func Navigate_To_Mood_Page() {
+        
+        let mood_vc : Mood_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Mood_ViewController") as! Mood_ViewController
+        
+        
+        
+        present(mood_vc, animated: true)
+        
+        
+    }
+    
+    
+    
 //MARK: ===== ALERT BOX FOR MENU =====
     
     func menu_alert_box() {
@@ -459,15 +484,34 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
         let schedule = UIAlertAction(title: "Schedule Configure", style: .default) { action in
+        
             self.Navigate_To_Schedule_page()
         }
+        
+        let Replica = UIAlertAction(title: "Replica Configure", style: .default) { action in
+        
+            
+            self.Navigate_To_Replica_Page()
+            
+        }
+        
+        
+        let Mood = UIAlertAction(title: "Mood Configure", style: .default) { action in
+        
+            
+            self.Navigate_To_Mood_Page()
+            
+        }
+        
+        
+        
         
         alert.addAction(dim_option)
         alert.addAction(child_lock)
         alert.addAction(shuffle)
         alert.addAction(schedule)
-        
-        
+        alert.addAction(Replica)
+        alert.addAction(Mood)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         

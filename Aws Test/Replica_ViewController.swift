@@ -30,6 +30,10 @@ class Replica_ViewController: UIViewController {
         
         replica_config(mode: Rp_value)
         
+        navigationController?.popViewController(animated: true)
+
+        dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func replica_button_box(_ sender: UIButton) {

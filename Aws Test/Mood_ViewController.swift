@@ -12,7 +12,8 @@ import Alamofire
 
 class Mood_ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
    
-    
+    var topic_pub: String = "SKSL_YxuODf/HA/A/req"
+    var topic_sub : String = "SKSL_YxuODf/HA/E/ack"
 
     @IBOutlet weak var mood_collectionView: UICollectionView!
     
@@ -45,6 +46,10 @@ class Mood_ViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         mood_config(val: join_selected_device)
         
+        
+        navigationController?.popViewController(animated: true)
+
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -73,7 +78,7 @@ class Mood_ViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             let iot_sample_vc = Iot_sample_ViewController()
             
-            iotDataManager.publishString(theJSONText!, onTopic:iot_sample_vc.topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
+            iotDataManager.publishString(theJSONText!, onTopic:topic_pub, qoS:.messageDeliveryAttemptedAtMostOnce)
             
             
         }

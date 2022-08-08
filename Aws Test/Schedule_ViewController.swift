@@ -286,6 +286,10 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
         publish_shuffle_config(no: schedule_selected_value, sch_type: schedule_type_string, week_schedule: join_selected_days, time: final_time, L_state: join_l_state, fan_state: join_fan_state)
         
+        navigationController?.popViewController(animated: true)
+
+        dismiss(animated: true, completion: nil)
+        
         
     }
     

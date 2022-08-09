@@ -449,12 +449,51 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
+    func Navigate_To_Add_Mood_Page() {
+        
+        
+        let add_mood_vc : Add_Mood_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Add_Mood_ViewController") as! Add_Mood_ViewController
+        
+        
+        present(add_mood_vc, animated: true)
+    }
+    
+    
+    
+    func set_and_add_mood_alert_box() {
+        
+        let set_and_add_mood = UIAlertController(title: "Please select the option", message: "", preferredStyle: .actionSheet)
+        
+        
+        let Set_Mood = UIAlertAction(title: "Set Mood Slave", style: .default) { action in
+          
+            
+            self.Navigate_To_Mood_Page()
+            
+        }
+        
+        let Add_Mood = UIAlertAction(title: "Add Mood Slave", style: .default) { action in
+          
+            self.Navigate_To_Add_Mood_Page()
+            
+        }
+        
+        set_and_add_mood.addAction(Set_Mood)
+        set_and_add_mood.addAction(Add_Mood)
+        set_and_add_mood.addAction(UIAlertAction(title: "Cancel", style: .destructive))
+        
+        
+        present(set_and_add_mood, animated: true)
+        
+        
+    }
+    
+    
     
 //MARK: ===== ALERT BOX FOR MENU =====
-    
+   
     func menu_alert_box() {
-        
-        
+       
         let alert = UIAlertController(title: "Select Your Option", message: "", preferredStyle: .actionSheet)
         
         
@@ -496,12 +535,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         
-        let Mood = UIAlertAction(title: "Mood Configure", style: .default) { action in
+        let Mood_Config = UIAlertAction(title: "Mood Configure", style: .default) { action in
         
+            self.set_and_add_mood_alert_box()
             
-            self.Navigate_To_Mood_Page()
             
         }
+        
         
         
         
@@ -511,15 +551,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         alert.addAction(shuffle)
         alert.addAction(schedule)
         alert.addAction(Replica)
-        alert.addAction(Mood)
+        alert.addAction(Mood_Config)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         
-        present(alert, animated: true)
+        self.present(alert, animated: true)
         
-        
-        
-    }///_CLOSED
+      }
+   
+    
+    ///_CLOSED
+ 
     
 //MARK: ===== MENU OPTION =====
     

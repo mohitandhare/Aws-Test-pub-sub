@@ -583,7 +583,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pFi-bQ-d6o">
-                                <rect key="frame" x="5" y="144" width="404" height="400"/>
+                                <rect key="frame" x="5" y="94" width="404" height="400"/>
                                 <color key="backgroundColor" red="0.17166277769999999" green="0.17541572450000001" blue="0.2124480903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="7tS-TL-bU8"/>
@@ -650,7 +650,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWG-qf-gWO">
-                                <rect key="frame" x="100" y="594" width="214" height="50"/>
+                                <rect key="frame" x="100" y="544" width="214" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="A1Y-Bd-OX3"/>
                                 </constraints>
@@ -669,7 +669,7 @@
                         <constraints>
                             <constraint firstItem="vqd-H6-bnD" firstAttribute="trailing" secondItem="pFi-bQ-d6o" secondAttribute="trailing" constant="5" id="ACn-q9-MEY"/>
                             <constraint firstItem="vqd-H6-bnD" firstAttribute="trailing" secondItem="sWG-qf-gWO" secondAttribute="trailing" constant="100" id="BuH-Fj-DK9"/>
-                            <constraint firstItem="pFi-bQ-d6o" firstAttribute="top" secondItem="vqd-H6-bnD" secondAttribute="top" constant="100" id="PZu-t8-GWC"/>
+                            <constraint firstItem="pFi-bQ-d6o" firstAttribute="top" secondItem="vqd-H6-bnD" secondAttribute="top" constant="50" id="PZu-t8-GWC"/>
                             <constraint firstItem="pFi-bQ-d6o" firstAttribute="leading" secondItem="vqd-H6-bnD" secondAttribute="leading" constant="5" id="Plz-rR-do8"/>
                             <constraint firstItem="sWG-qf-gWO" firstAttribute="top" secondItem="pFi-bQ-d6o" secondAttribute="bottom" constant="50" id="gFB-sv-dtI"/>
                             <constraint firstItem="sWG-qf-gWO" firstAttribute="leading" secondItem="vqd-H6-bnD" secondAttribute="leading" constant="100" id="sce-v1-Q1M"/>
@@ -683,6 +683,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m0V-ja-xN6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2437.68115942029" y="784.82142857142856"/>
+        </scene>
+        <!--Add Mood View Controller-->
+        <scene sceneID="8S0-Qo-pNw">
+            <objects>
+                <viewController storyboardIdentifier="Add_Mood_ViewController" id="VPW-18-yXi" customClass="Add_Mood_ViewController" customModule="Aws_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wcb-1c-dvm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Mood Switch Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDD-ne-hnu">
+                                <rect key="frame" x="20" y="94" width="374" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QxB-RK-CdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckA-hN-DuA">
+                                <rect key="frame" x="20" y="154" width="374" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="FXN-V2-ZUV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azj-7Y-yHJ">
+                                <rect key="frame" x="100" y="544" width="214" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1Uh-4A-Vnh"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add Mood" cornerStyle="capsule">
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="add_mood_save_button:" destination="VPW-18-yXi" eventType="touchUpInside" id="4E7-pY-nt9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JQN-sX-h8o"/>
+                        <color key="backgroundColor" red="0.17166277769999999" green="0.17541572450000001" blue="0.2124480903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="JQN-sX-h8o" firstAttribute="trailing" secondItem="azj-7Y-yHJ" secondAttribute="trailing" constant="100" id="DdM-ih-KbE"/>
+                            <constraint firstItem="azj-7Y-yHJ" firstAttribute="leading" secondItem="JQN-sX-h8o" secondAttribute="leading" constant="100" id="GRr-yt-rLh"/>
+                            <constraint firstItem="JQN-sX-h8o" firstAttribute="trailing" secondItem="HDD-ne-hnu" secondAttribute="trailing" constant="20" id="Li0-01-iLD"/>
+                            <constraint firstItem="ckA-hN-DuA" firstAttribute="leading" secondItem="JQN-sX-h8o" secondAttribute="leading" constant="20" id="N6y-tz-lLe"/>
+                            <constraint firstItem="azj-7Y-yHJ" firstAttribute="top" secondItem="JQN-sX-h8o" secondAttribute="top" constant="500" id="Xd5-rC-ztc"/>
+                            <constraint firstItem="JQN-sX-h8o" firstAttribute="trailing" secondItem="ckA-hN-DuA" secondAttribute="trailing" constant="20" id="aC9-YK-uSo"/>
+                            <constraint firstItem="ckA-hN-DuA" firstAttribute="top" secondItem="HDD-ne-hnu" secondAttribute="bottom" constant="20" id="f9v-5b-saU"/>
+                            <constraint firstItem="HDD-ne-hnu" firstAttribute="top" secondItem="JQN-sX-h8o" secondAttribute="top" constant="50" id="saC-Rq-1SG"/>
+                            <constraint firstItem="HDD-ne-hnu" firstAttribute="leading" secondItem="JQN-sX-h8o" secondAttribute="leading" constant="20" id="zb1-9t-sNV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mood_switch_select" destination="ckA-hN-DuA" id="zHs-lM-J6z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1la-Ba-l5f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3084" y="785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4l4-sa-stA">

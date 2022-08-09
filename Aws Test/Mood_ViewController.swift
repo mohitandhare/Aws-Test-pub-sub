@@ -40,16 +40,29 @@ class Mood_ViewController: UIViewController, UICollectionViewDelegate, UICollect
         
     }
     
+    func Navigate_To_Add_Mood_Page() {
+
+
+        
+    }
+    
+    
+    
     @IBAction func set_config_button(_ sender: UIButton) {
+        
+        
+        let add_mood_vc : Add_Mood_ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Add_Mood_ViewController") as! Add_Mood_ViewController
+        
+
+        
         
         let join_selected_device = array_value.joined(separator: "")
         
         mood_config(val: join_selected_device)
         
         
-        navigationController?.popViewController(animated: true)
-
-        dismiss(animated: true, completion: nil)
+        present(add_mood_vc, animated: true)
+        
     }
     
     

@@ -23,18 +23,12 @@ class Dim_Config_ViewController: UIViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        
-        
         print("GOT : >>> ",dim_array)
         print("GOT : >>> ",c_nm_array)
         
         dim_collection_view.delegate = self
         dim_collection_view.dataSource = self
         dim_collection_view.reloadData()
-        
-        
         
     }
     

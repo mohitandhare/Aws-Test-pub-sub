@@ -27,9 +27,18 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBOutlet weak var day_collectionView: UICollectionView!
     
-    let timePicker = UIDatePicker()
+    var timePicker = UIDatePicker()
+    
+    
+    
     var StartHours_Value : Int!
     var StartMinutes_Value : Int!
+    
+    var year_value : Int!
+    var month_value : Int!
+    var date_value : Int!
+    
+    
     let calender = Calendar.current
     var time_text : String!
     var schedule_selected_value : Int!
@@ -38,6 +47,9 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var time_label: UILabel!
     
     @IBOutlet weak var time_select: UITextField!
+    
+    @IBOutlet weak var date_label: UILabel!
+    
     
     var schedule_type_flag = false
     var schedule_type_string : String!
@@ -66,7 +78,7 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var Days_selected = ["0","0","0","0","0","0","0"]
     
-    
+    var Perticular_date_string : String!
     
     
     var publish_days_selected = [""]
@@ -88,6 +100,9 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        time_label.isHidden = true
+        time_select.isHidden = true
+        date_label.isHidden = true
         
         print("schedule_vc_l_state_array : <<<NOW>>> " , schedule_vc_l_state_array)
         
@@ -99,14 +114,16 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         let StartTime_Tool_Bar = UIToolbar()
         StartTime_Tool_Bar.sizeToFit()
         
-        let firstStartTime_Tool_Bar_Done_Btn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(firstStartTimeDoneBtn))
+        let firstStartTime_Tool_Bar_Done_Btn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(Time_Date_Picker_Done_Button))
         
         StartTime_Tool_Bar.items = [firstStartTime_Tool_Bar_Done_Btn]
         
         
         StartTime_Tool_Bar.items = [firstStartTime_Tool_Bar_Done_Btn]
         
-        timePicker.frame = CGRect(x: 0.0, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 200)
+        timePicker.frame = CGRect(x: 50, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 200)
+        
+
         
         timePicker.backgroundColor = UIColor.gray
         firstStartTime_Tool_Bar_Done_Btn.tintColor = UIColor.black
@@ -147,7 +164,13 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             
             weekly_box_outlet.setImage(UIImage(named: "check"), for: UIControl.State.normal)
             schedule_type_flag = true
+            
+            time_label.isHidden = false
+            time_select.isHidden = false
+            date_label.isHidden = false
+            
             schedule_type_string = "W"
+            timePicker.datePickerMode = .time
             Days_selected = ["1","1","1","1","1","1","1"]
             day_collectionView.isHidden = false
             
@@ -171,7 +194,14 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             
             daily_box_outlet.setImage(UIImage(named: "check"), for: UIControl.State.normal)
             schedule_type_flag = true
+            
+            time_label.isHidden = false
+            time_select.isHidden = false
+            date_label.isHidden = false
+            
             schedule_type_string = "D"
+            
+            timePicker.datePickerMode = .time
             
             Days_selected = ["1","1","1","1","1","1","1"]
             
@@ -197,14 +227,26 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
         if schedule_type_flag == false {
             
+            
             perticular_day_box_outlet.setImage(UIImage(named: "check"), for: UIControl.State.normal)
             schedule_type_flag = true
+            
+            time_label.isHidden = false
+            time_select.isHidden = false
+            date_label.isHidden = false
+            
             schedule_type_string = "P"
+            
+            timePicker.minimumDate = Calendar.current.date(byAdding: .year, value: 0, to: Date())
+            timePicker.datePickerMode = .dateAndTime
+            
+            
             
             daily_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
             weekly_box_outlet.setImage(UIImage(named: "uncheck"), for: UIControl.State.normal)
             
             day_collectionView.isHidden = true
+            
             
         }
         
@@ -217,22 +259,39 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
         
     }
     
-    @objc func firstStartTimeDoneBtn() {
+    @objc func Time_Date_Picker_Done_Button() {
+        
+        
+//    MARK: TIME FORMATTER
         
         let firstStartFormatter = DateFormatter()
-        
         firstStartFormatter.dateFormat = "HH:mm"
         firstStartFormatter.timeStyle = .short
-        
+     
         time_select.text = firstStartFormatter.string(from: timePicker.date)
-        self.view.endEditing(true)
         
         StartHours_Value = calender.component(.hour, from: timePicker.date)
         StartMinutes_Value = calender.component(.minute, from: timePicker.date)
+       
+        print("HOURS >>>>", StartHours_Value!)
+        print("Minutes >>>>", StartMinutes_Value!)
         
-        print("HOURS =====", StartHours_Value!)
-        print("Minutes =====", StartMinutes_Value!)
+//    MARK: DATE FORMATTER
         
+        let date_formatter = DateFormatter()
+        date_formatter.dateFormat = "yyyy/MM/dd/"
+
+        let showDate = date_formatter.date(from: "2022/08/09")
+        date_formatter.dateFormat = "yy/MM/dd"
+
+        Perticular_date_string = date_formatter.string(from: showDate!)
+        print("resultString ..>>", Perticular_date_string)
+        
+        date_label.text = Perticular_date_string
+        
+           
+        self.view.endEditing(true)
+              
     }
     
     
@@ -284,6 +343,8 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
             print("final_time", final_time!)
         }
         
+       
+        
         publish_shuffle_config(no: schedule_selected_value, sch_type: schedule_type_string, week_schedule: join_selected_days, time: final_time, L_state: join_l_state, fan_state: join_fan_state)
         
         navigationController?.popViewController(animated: true)
@@ -297,12 +358,20 @@ class Schedule_ViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func publish_shuffle_config(no: Int, sch_type: String, week_schedule: String, time: String, L_state: String, fan_state : String) {
         
+        var P_Date = "00/00/00"
+        
+        if schedule_type_string == "P" {
+            
+            P_Date = Perticular_date_string
+            
+        }
+        
         
         let shuffle_params : Parameters = [
-            
+          
             "control":"scheduler_config",
             "no": no,
-            "date":"00/00/00",
+            "date": P_Date,
             "sch_type": sch_type,
             "week_schedule": week_schedule,
             "time": time,

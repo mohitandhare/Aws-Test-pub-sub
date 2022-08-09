@@ -1246,6 +1246,15 @@
                                     <action selector="save_time:" destination="j4G-I9-y0s" eventType="touchUpInside" id="bBd-Ww-KY7"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uG-hq-B2e">
+                                <rect key="frame" x="278" y="634" width="0.0" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="nOt-8p-NXJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CTI-fk-xk9"/>
                         <color key="backgroundColor" red="0.17166277769999999" green="0.17541572450000001" blue="0.2124480903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1260,12 +1269,14 @@
                             <constraint firstItem="gLZ-Tw-pgp" firstAttribute="top" secondItem="FXK-BQ-GLt" secondAttribute="bottom" constant="20" id="9JY-m8-SWy"/>
                             <constraint firstItem="Te2-F1-7lM" firstAttribute="top" secondItem="7l9-jz-MQW" secondAttribute="bottom" constant="10" id="A8O-7d-2ZH"/>
                             <constraint firstItem="FXK-BQ-GLt" firstAttribute="leading" secondItem="CTI-fk-xk9" secondAttribute="leading" constant="5" id="CGt-Fp-sGq"/>
+                            <constraint firstItem="1uG-hq-B2e" firstAttribute="leading" secondItem="tXQ-iD-mXp" secondAttribute="trailing" constant="20" id="DTz-h0-WFM"/>
                             <constraint firstItem="iAp-9H-4yB" firstAttribute="leading" secondItem="x5d-yr-9WF" secondAttribute="trailing" constant="30" id="Fqp-pL-c2x"/>
                             <constraint firstItem="tXQ-iD-mXp" firstAttribute="leading" secondItem="gLZ-Tw-pgp" secondAttribute="trailing" constant="20" id="IuZ-eD-fQp"/>
                             <constraint firstItem="rbl-HY-CxY" firstAttribute="leading" secondItem="3SN-aE-e86" secondAttribute="trailing" constant="20" id="UGL-HK-px6"/>
                             <constraint firstItem="FXK-BQ-GLt" firstAttribute="top" secondItem="x5d-yr-9WF" secondAttribute="bottom" constant="20" id="Vpu-Mm-1FZ"/>
                             <constraint firstItem="CTI-fk-xk9" firstAttribute="trailing" secondItem="FXK-BQ-GLt" secondAttribute="trailing" constant="5" id="Vva-AC-NUn"/>
                             <constraint firstItem="7l9-jz-MQW" firstAttribute="leading" secondItem="CTI-fk-xk9" secondAttribute="leading" constant="20" id="Wee-Q7-yy3"/>
+                            <constraint firstItem="1uG-hq-B2e" firstAttribute="top" secondItem="FXK-BQ-GLt" secondAttribute="bottom" constant="20" id="XNv-EM-vsy"/>
                             <constraint firstItem="Te2-F1-7lM" firstAttribute="leading" secondItem="CTI-fk-xk9" secondAttribute="leading" constant="5" id="cm1-xa-kKO"/>
                             <constraint firstItem="x5d-yr-9WF" firstAttribute="top" secondItem="Te2-F1-7lM" secondAttribute="bottom" constant="20" id="d1Q-qS-7yb"/>
                             <constraint firstItem="rbl-HY-CxY" firstAttribute="top" secondItem="Te2-F1-7lM" secondAttribute="bottom" constant="20" id="ele-zx-txM"/>
@@ -1284,6 +1295,7 @@
                     <connections>
                         <outlet property="Schedule_CollectionView" destination="7l9-jz-MQW" id="IcC-Sw-xnp"/>
                         <outlet property="daily_box_outlet" destination="iAp-9H-4yB" id="dfS-bt-62D"/>
+                        <outlet property="date_label" destination="1uG-hq-B2e" id="P6z-KJ-Knb"/>
                         <outlet property="day_collectionView" destination="FXK-BQ-GLt" id="Ei9-jL-54r"/>
                         <outlet property="perticular_day_box_outlet" destination="3SN-aE-e86" id="5HD-Ez-9RJ"/>
                         <outlet property="schedule_button_collectionView" destination="Te2-F1-7lM" id="AOO-KQ-pSj"/>
